@@ -14,9 +14,13 @@ mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 if (isset($_GET['activate'])) {
     $query = "UPDATE promises SET active='1' WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($_GET['activate']) . "'";
     mysql_query($query);
-    // Add a "WAITING" for today
-    $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($_GET['activate']) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "', 'WAITING')";
-    mysql_query($query);
+    // Add a "WAITING" for today, if there's no data currently
+    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($_GET['activate']) . "' AND date='" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "'";
+    $recordResult = mysql_query($query);
+    if (mysql_num_rows($recordResult) == 0) {
+        $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($_GET['activate']) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "', 'WAITING')";
+        mysql_query($query);
+    }
 }
 
 // Current promise deactivation
