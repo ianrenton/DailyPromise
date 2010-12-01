@@ -2,10 +2,10 @@
 
 session_start();
 require_once('twitteroauth/twitteroauth.php');
-require_once('common.php');
 require_once('config.php');
 
 // If we don't already have a session, try and get one from cookie or Twitter.
+// If we do, this script does nothing.
 if (!isset($_SESSION['uid'])) {
     // Bring in access token from cookie if it exists.
     if (!empty($_COOKIE['access_token'])) {
@@ -74,9 +74,13 @@ if (!isset($_SESSION['uid'])) {
 
     mysql_close();
     
-    // Point first-timers at the Manage page to set some promises.
+    // Point first-timers at the Manage page to set some promises.  Point returning
+    // users at their View.
     if ($firstTime == true) {
         header('Location: /manage' );
+    	die();
+    } else {
+        header('Location: /view' );
     	die();
     }
 }

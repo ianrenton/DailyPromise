@@ -4,7 +4,6 @@ date_default_timezone_set('UTC');
 
 /* Load required lib files. */
 session_start();
-require_once('auth.php');
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
@@ -17,16 +16,18 @@ date_default_timezone_set('UTC');
 $headerContent = makeLinksForm();
 
 
-// Generates the top-right config area
+// Generates the top-right links for logged in users
 function makeLinksForm() {
 	
-	$content = '<div><ul id="topmenu">';
-	$content .= '<li><a href="/view">view</a></li>';
-	$content .= '<li><a href="/enter">enter</a></li>';
-	$content .= '<li><a href="/manage">manage</a></li>';
-	$content .= '<li><a href="/configure">configure</a></li>';
-	$content .= '<li><a href="/logout">log out</a></li>';
-    $content .= '</ul></div>';
+    if (isset($_SESSION['uid'])) {
+    	$content = '<div><ul id="topmenu">';
+    	$content .= '<li><a href="/view">view</a></li>';
+    	$content .= '<li><a href="/enter">enter</a></li>';
+    	$content .= '<li><a href="/manage">manage</a></li>';
+    	$content .= '<li><a href="/configure">configure</a></li>';
+    	$content .= '<li><a href="/logout">log out</a></li>';
+        $content .= '</ul></div>';
+    }
 	return $content;
 }
 
