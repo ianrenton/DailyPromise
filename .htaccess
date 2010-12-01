@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteRule ^connect$ connect.php [L]
+RewriteRule ^twittersignin$ redirect.php [L]
+RewriteRule ^view$ view.php [L]
+RewriteRule ^enter\/([\d-]+)\/done$ enter.php?date=$1&done=true [L]
+RewriteRule ^enter\/([\d-]+)$ enter.php?date=$1 [L]
+RewriteRule ^enter$ enter.php [L]
+RewriteRule ^manage$ manage.php [L]
+RewriteRule ^manage\/done$ manage.php?done=true [L]
+RewriteRule ^activate\/([\d-]+)$ managecallback.php?activate=$1 [L]
+RewriteRule ^deactivate\/([\d-]+)$ managecallback.php?deactivate=$1 [L]
+RewriteRule ^configure$ configure.php [L]
+RewriteRule ^logout$ clearsessions.php [L]
