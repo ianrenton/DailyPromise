@@ -2,6 +2,7 @@ RewriteEngine On
 RewriteRule ^connect$ connect.php [L]
 RewriteRule ^twittersignin$ redirect.php [L]
 RewriteRule ^view$ view.php [L]
+RewriteRule ^user\/([\w-_]+)$ view.php?username=$1 [L]
 RewriteRule ^enter\/([\d-]+)\/done$ enter.php?date=$1&done=true [L]
 RewriteRule ^enter\/([\d-]+)$ enter.php?date=$1 [L]
 RewriteRule ^enter$ enter.php [L]

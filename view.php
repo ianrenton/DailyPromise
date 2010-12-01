@@ -10,16 +10,41 @@ require_once('config.php');
 mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 @mysql_select_db(DB_NAME) or die( "Unable to select database");
 
-// Insert today's "waiting" records if they're not already there
-addTodaysWaitingRecords();
+// Get user id for display, either from a username lookup (/user/blah) or from session (/view).
+if (isset($_GET['username'])) {
+    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_GET['username']) . "'";
+    $userResult = mysql_query($query);
+    $row = mysql_fetch_assoc($userResult);
+    $uid = $row['uid'];
+} else {
+    $uid = $_SESSION['uid'];
+    
+    // Insert today's "waiting" records for active user if they're not already there
+    addTodaysWaitingRecords();
+}
 
 // Build the main display
-$content .= makeHistoryTable($_SESSION['uid']);
-$content .= makeEnterLink();
-$content .= makeSummary();
+if ($uid != $_SESSION['uid']) {
+    $content .= makeUserBio();
+}
+$content .= makeHistoryTable($uid);
+if ($uid == $_SESSION['uid']) {
+    $content .= makeEnterLink();
+}
+$content .= makeSummary($uid);
 include('html.inc');
 
 mysql_close();
+
+
+
+function makeUserBio() {
+
+    $content .= "<div class=\"centeredlistheader\">" . $_GET['username'] . "</div>";
+    
+    return $content;
+}
+
 
 
 
@@ -88,8 +113,14 @@ function makeHistoryTable($uid) {
     }
     // User is generating their own table, offer a link to add more promises.
     if ($_SESSION['uid'] == $uid) {
-        $content .= "<tr><td class=\"promise\"><a href=\"/manage\">add another promise?</a></td></tr>";
+        $content .= "<tr><td class=\"promise\"><a href=\"/manage\">add a";
+        if (mysql_num_rows($promiseResult) > 0) { $content .= "nother"; }
+        $content .= " promise?</a></td></tr>";
+    } else if (mysql_num_rows($promiseResult) == 0) {
+        // Other user's blank table
+        $content .= "<tr><td class=\"promise\">no promises set yet!</td></tr>";
     }
+    
     $content .= "</table>";
     
     return $content;
@@ -129,9 +160,9 @@ function makeEnterLink() {
 }
 
 
-function makeSummary() {
+function makeSummary($uid) {
     
-    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "'";
+    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "'";
     $recordResult = mysql_query($query);
     
     $total = 0;
@@ -145,13 +176,28 @@ function makeSummary() {
             $total++;
         }
     }
-    $thisWeek = round($kept/$total*100);
     $recordsThisWeek = $total;
     
-    $content = "<div class=\"summary\"><div>So far this week you have scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
-    $content .= "<p class=\"percentage\">" . $thisWeek . "%</p>";
+    // Grammar for looking at other users' profiles
+    $userString = "you";
+    $hasString = "you have";
+    if ($uid != $_SESSION['uid']) {
+        $query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($uid) . "'";
+        $userResult = mysql_query($query);
+        $row = mysql_fetch_assoc($userResult);
+        $userString = $row['username'];
+        $hasString = $row['username'] . " has";
+    }
     
-    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND date<='" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday - 7"))) . "'";
+    if ($total > 0) {
+        $thisWeek = round($kept/$total*100);
+        $content .= "<div class=\"summary\"><div>So far this week " . $hasString . " scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
+        $content .= "<p class=\"percentage\">" . $thisWeek . "%</p>";
+    } else {
+        $content .= "<div class=\"summary\"><div>Nothing has been logged yet this week.</div>";
+    }
+    
+    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND date<='" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday - 7"))) . "'";
     $recordResult = mysql_query($query);
     
     $total = 0;
@@ -165,10 +211,14 @@ function makeSummary() {
             $total++;
         }
     }
-    $lastWeek = round($kept/$total*100);
     
-    $content .= "<div>Last week you scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
-    $content .= "<p class=\"percentage\">" . $lastWeek . "%</p>";
+    if ($total > 0) {
+        $lastWeek = round($kept/$total*100);
+        $content .= "<div>Last week " . $userString . " scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
+        $content .= "<p class=\"percentage\">" . $lastWeek . "%</p>";
+    } else {
+        $content .= "<div>Nothing was logged last week.</div>";
+    }
     
     $content .= "<p class=\"improvement\">";
     if ($recordsThisWeek == 0) {
