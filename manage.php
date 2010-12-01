@@ -66,7 +66,7 @@ function makeCurrentPromises() {
         if ($pass+$fail <= 0) {
             $content .= "<td>(No data for this promise yet.)</td>";
         } else {
-            $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate since " . $earliestDate . ".)</td>";
+            $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)</td>";
         }
         $content .= "<td><a href=\"/deactivate/" . $promise['pid'] . "\">X</a></td></tr>";
     }
@@ -121,7 +121,7 @@ function makeOldPromises() {
         $earliestDate = $row['MIN(date)'];
         $latestDate = $row['MAX(date)'];
         
-        $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate from " . $earliestDate . " to " . $latestDate . ".)</td>";
+        $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate from " . date("j M Y", strtotime($earliestDate)) . " to " . date("j M Y", strtotime($latestDate)) . ".)</td>";
         $content .= "<td><a href=\"/activate/" . $promise['pid'] . "\">^</a></td></tr>";
     }
     

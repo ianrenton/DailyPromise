@@ -73,11 +73,19 @@ ul.enterlinks {
     padding:10px;
     background: #eeffee;
     border: 3px solid #cceecc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 ul.enterlinks li {
     display: inline;
     margin: 0 0.5em 0 0.5em;
+}
+
+ul.enterlinks li a {
+    font-weight: bold;
 }
 
 div.summary {
@@ -100,12 +108,59 @@ p.improvement {
     font-size: 1.8em;
     color: #66bb66;
     margin:0.3em 0 0.3em 0;
+    padding:10px;
+    background: #eeffee;
+    border: 3px solid #cceecc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+div.missingentries {
+    margin-top:40px;
+}
+
+span.missingentries {
+    margin:0;
+    padding:10px;
+    background: #eeffee;
+    border: 3px solid #cceecc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+span.missingentries a {
+    font-weight: bold;
+}
+
+div.enterintro {
+    margin:40px 20px 20px 20px;
+}
+
+ul.enterlist {
+    list-style-type: none;
+    margin:20px;
+    padding:0 20px 0 20px;
+    background: #eeeeee;
+    border: 3px solid #dddddd;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+ul.enterlist li {
+    margin: 1em 0 1em 0;
+    font-weight: bold;
 }
 
 #footer {
     clear:both;
-    width:95%;
-    margin: 20px auto 20px auto;
+    width:80%;
+    margin: 80px auto 20px auto;
     font-size:0.8em;
     color:#888888;
 }

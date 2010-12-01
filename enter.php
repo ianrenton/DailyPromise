@@ -18,7 +18,7 @@ if (isset($_GET['date'])) {
 }
 
 // Build the main display
-$content = makeOldEntryChecker();
+$content = makeOldEntryChecker($date);
 $content .= makeTodaysEntry($date);
 
 // If we're coming back from the callback
@@ -32,7 +32,7 @@ mysql_close();
 
 
 
-function makeOldEntryChecker() {
+function makeOldEntryChecker($date) {
     // Find the earliest "WAITING" record.
     $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND kept='WAITING' ORDER BY date ASC";
     $recordResult = mysql_query($query);
@@ -41,8 +41,8 @@ function makeOldEntryChecker() {
         $earliestDate = $record['date'];
         // If it's not today, prompt to fill in a past date.
         $today = date("Y-m-d", strtotime("today"));
-        if ($earliestDate != $today) {
-            $content .= "<div>You still have missing entries from " . $earliestDate . ".  <a href=\"/enter/" . $earliestDate . "\">Click here to complete them!</a></div>";
+        if (($earliestDate != $today) && ($earliestDate != $date)) {
+            $content .= "<div class=\"missingentries\"><span class=\"missingentries\">You still have missing entries from " . $earliestDate . ".  <a href=\"/enter/" . $earliestDate . "\">Click here to complete them!</a></span></div>";
         }
     }
     return $content;
@@ -60,12 +60,12 @@ function makeTodaysEntry($date) {
     // Friendly date header
     $today = date("Y-m-d", strtotime("today"));
     if ($date == $today) {
-        $content = "<div>Today I...</div>";
+        $content = "<div class=\"enterintro\">Today, " . date("l jS F", strtotime($date)) . ", I...</div>";
     } else {
-        $content = "<div>On " . $date . " I...</div>";
+        $content = "<div class=\"enterintro\">On " . date("l jS F", strtotime($date)) . " I...</div>";
     }
     
-    $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul>";
+    $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul class=\"enterlist\">";
     
     while ($promise = mysql_fetch_assoc($promiseResult)) {
     
@@ -126,7 +126,7 @@ function makeTweetBoxes($date) {
     if ($date == $today) {
         $content = "Today";
     } else {
-        $content = "On " . $date;
+        $content = "On " . date("l jS F", strtotime($date));
     }
     $content .= " you met " . $kept . " of your " . ($kept+$unkept+$waiting) . " promise";
     $content .= (($kept+$unkept+$waiting)==1)?".":"s.";
