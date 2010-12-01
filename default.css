@@ -1,0 +1,111 @@
+html, body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+}
+
+#header {
+    background-color:#66bb66;
+    width:100%;
+    height:50px;
+}
+
+a#sitename {
+    text-decoration: none;
+    color:white;
+    font-size:2.5em;
+    margin-left:0.3em;
+    float: left;
+}
+
+ul#topmenu {
+    list-style-type: none;
+    white-space: nowrap;
+    float: right;
+}
+
+ul#topmenu li {
+    display: inline;
+    margin-right: 1em;
+}
+
+ul#topmenu li a {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+#content {
+    clear:both;
+    width:95%;
+    margin: 20px auto 20px auto;
+}
+
+#content a {
+    color:#66bb66;
+    text-decoration: underline;
+}
+
+
+table.historytable {
+    border: 0;
+    font-size: 1em;
+}
+
+table.historytable td.date {
+    font-size: 0.8em;
+    text-align: center;
+    padding: 0 4px 0 4px;
+}
+
+table.historytable td.promise {
+    font-size: 0.9em;
+    text-align: right;
+    margin: 0 0 0 8px;
+    border-bottom: 1px solid #dddddd;
+}
+
+ul.enterlinks {
+    list-style-type: none;
+    white-space: nowrap;
+    float: right;
+    margin:0;
+    padding:10px;
+    background: #eeffee;
+    border: 3px solid #cceecc;
+}
+
+ul.enterlinks li {
+    display: inline;
+    margin: 0 0.5em 0 0.5em;
+}
+
+div.summary {
+    clear:both;
+    width: 60%;
+    margin: 80px auto 0 auto;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+p.percentage {
+    text-align: center;
+    font-size: 1.8em;
+    color: #66bb66;
+    margin:0.3em 0 0.3em 0;
+}
+
+p.improvement {
+    text-align: center;
+    font-size: 1.8em;
+    color: #66bb66;
+    margin:0.3em 0 0.3em 0;
+}
+
+#footer {
+    clear:both;
+    width:95%;
+    margin: 20px auto 20px auto;
+    font-size:0.8em;
+    color:#888888;
+}
