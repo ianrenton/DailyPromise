@@ -12,5 +12,5 @@ session_destroy();
 setcookie('access_token', '', mktime()-1);
  
 /* Redirect to page with the connect to Twitter option. */
-header('Location: /connect');
+header('Location: /home');
 die();

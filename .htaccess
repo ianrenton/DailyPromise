@@ -1,4 +1,6 @@
 RewriteEngine On
+RewriteRule ^home$ index.php [L]
+RewriteRule ^home\/([\w]+)$ index.php?response=$1 [L]
 RewriteRule ^connect$ connect.php [L]
 RewriteRule ^twittersignin$ redirect.php [L]
 RewriteRule ^view$ view.php [L]
@@ -11,4 +13,5 @@ RewriteRule ^manage\/done$ manage.php?done=true [L]
 RewriteRule ^activate\/([\d-]+)$ managecallback.php?activate=$1 [L]
 RewriteRule ^deactivate\/([\d-]+)$ managecallback.php?deactivate=$1 [L]
 RewriteRule ^configure$ configure.php [L]
+RewriteRule ^configure\/([\w]+)$ configure.php?response=$1 [L]
 RewriteRule ^logout$ clearsessions.php [L]

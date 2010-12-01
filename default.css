@@ -217,6 +217,10 @@ form.centeredform input.newpromisefield {
     width: 30em;
 }
 
+form.centeredform h4 {
+    margin-top: 0px;
+}
+
 div.entersubmitbutton {
     width: 100px;
     margin: 20px auto 20px auto;
@@ -251,6 +255,30 @@ div.backtoview {
 div.backtoview a {
     color:#66bb66;
     text-decoration: underline;
+}
+
+p.good {
+    margin:10px 0 0 0;
+    padding:10px;
+    border: 2px solid #66bb66;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #66bb66;
+    font-weight: bold;
+}
+
+p.error {
+    margin:10px 0 0 0;
+    padding:10px;
+    border: 2px solid #bb6666;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #bb6666;
+    font-weight: bold;
 }
 
 #footer {

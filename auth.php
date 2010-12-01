@@ -43,7 +43,7 @@ if (!isset($_SESSION['uid'])) {
     	die();
     } else if ($auth["error"] == 'Could not authenticate you.') {
     	// If we couldn't authenticate, log out and try again.
-    	header('Location: clearsessions.php' );
+    	header('Location: /logout' );
     	die();
     }
 
@@ -58,10 +58,12 @@ if (!isset($_SESSION['uid'])) {
         // If user is a first-time visitor, add a row for them.
         $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','')";
         mysql_query($query);
+        $firstTime = true;
     } else {
         // If user is in the users table, update their access token
         $query = "UPDATE users SET auth_token = '" . mysql_real_escape_string(serialize($access_token)) . "' WHERE username = '" . mysql_real_escape_string($_SESSION['thisUser']) . "'";
         mysql_query($query);
+        $firstTime = false;
     }
 
     // Get uid
@@ -71,4 +73,10 @@ if (!isset($_SESSION['uid'])) {
     $_SESSION['uid'] = $userRow['uid'];
 
     mysql_close();
+    
+    // Point first-timers at the Manage page to set some promises.
+    if ($firstTime == true) {
+        header('Location: /manage' );
+    	die();
+    }
 }

@@ -1,59 +1,43 @@
 <?php
 
-/* Start session and load lib */
+/* Load required lib files. */
 session_start();
-require_once('twitteroauth/twitteroauth.php');
+require_once('auth.php');
 require_once('config.php');
+require_once('common.php');
 
-if ((isset($_POST['username'])) && (isset($_POST['password']))) {
-    if (DB_SERVER != '') {
-        mysql_connect(DB_SERVER,DB_USER,DB_PASS);
-        @mysql_select_db(DB_NAME) or die( "Unable to select database");
-        
-        // Get the user's access token from the table
-        $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_POST['username']) . "'";
-        $result = mysql_query($query);
-        
-        // Username check
-        if (mysql_num_rows($result) > 0) {
-            // Password check
-            $storedPassword = mysql_result($result, 0, "password");
-            if (strcmp($storedPassword, md5($_POST['password'])) == 0) {
-                
-                // Delete row from table
-                $query = "DELETE FROM users WHERE username='" . mysql_real_escape_string($_POST['username']) . "'";
-                $result = mysql_query($query);
-                
-                // Log out too if requested
-                if (isset($_POST['logout'])) {
-                    if ($_POST['logout'] == "true") {
-                        header('Location: ./clearsessions.php');
-                    } else {
-                        header('Location: ./index.php');
-                    }
-                } else {
-                    header('Location: ./index.php');
-                }
-                die();
-                
-            } else {
-                // Password didn't match
-                header('Location: ./unregister.php?fail=true');
-                die();
-            }
-        } else {
-            // Username didn't match
-            header('Location: ./unregister.php?fail=true');
-            die();
+if (isset($_POST['delete'])) {
+    mysql_connect(DB_SERVER,DB_USER,DB_PASS);
+    @mysql_select_db(DB_NAME) or die( "Unable to select database");
+
+    // Account deletion
+    $query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+    $result = mysql_query($query);
+    if (mysql_num_rows($result) > 0) {
+        // Delete the user's entry in the users table.
+        if (($_POST['delete'] == "delete") || ($_POST['delete'] == "nuke")) {
+            $query = "DELETE FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+            mysql_query($query);
         }
         
+        // Nuke if requested
+        if ($_POST['delete'] == "nuke") {
+            $query = "DELETE FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+            mysql_query($query);
+            $query = "DELETE FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+            mysql_query($query);
+        }
         mysql_close();
-
+        header('Location: /home/deleted');
+        die();
+    } else {
+        mysql_close();
+        header('Location: /configure/deleteerror');
+        die();
     }
+    
 } else {
-    // Called without username/password POST.
-    header('Location: ./unregister.php');
+    header('Location: /configure/deleteerror');
     die();
 }
-
 ?>

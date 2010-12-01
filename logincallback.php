@@ -1,9 +1,9 @@
 <?php
 
-/* Start session and load lib */
 session_start();
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
+require_once('common.php');
 
 if ((isset($_POST['username'])) && (isset($_POST['password']))) {
     if (DB_SERVER != '') {
@@ -30,17 +30,17 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
                 setcookie('access_token', serialize($access_token), mktime()+86400*365);
 
                 $_SESSION['status'] = 'verified';
-                header('Location: ./index.php');
+                header('Location: /view');
                 die();
                 
             } else {
                 // Password didn't match
-                header('Location: ./login.php?fail=true');
+                header('Location: /home/loginfailed');
                 die();
             }
         } else {
             // Username didn't match
-            header('Location: ./login.php?fail=true');
+            header('Location: /home/loginfailed');
             die();
         }
         
@@ -49,7 +49,7 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
     }
 } else {
     // Called without username/password POST.
-    header('Location: ./login.php');
+    header('Location: /home/loginfailed');
     die();
 }
 
