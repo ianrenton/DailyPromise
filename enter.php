@@ -60,12 +60,16 @@ function makeTodaysEntry($date) {
     // Friendly date header
     $today = date("Y-m-d", strtotime("today"));
     if ($date == $today) {
-        $content = "<div class=\"enterintro\">Today, " . date("l jS F", strtotime($date)) . ", I...</div>";
+        $content = "<div class=\"centeredlistheader\">Today, " . date("l jS F", strtotime($date)) . ", I...</div>";
     } else {
-        $content = "<div class=\"enterintro\">On " . date("l jS F", strtotime($date)) . ", I...</div>";
+        $content = "<div class=\"centeredlistheader\">On " . date("l jS F", strtotime($date)) . ", I...</div>";
     }
     
-    $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul class=\"enterlist\">";
+    $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul class=\"centeredlist\">";
+    
+    if (mysql_num_rows($promiseResult) == 0) {
+        $content .= "<li class=\"noitem\">You don't have any promises set up.  <a href=\"/manage\">Click here to do that now.</a></li>";
+    }
     
     while ($promise = mysql_fetch_assoc($promiseResult)) {
     
@@ -89,7 +93,7 @@ function makeTodaysEntry($date) {
             $no = "";
         }
     
-        $content .= "<li><span class=\"yesno\">";
+        $content .= "<li class=\"item\"><span class=\"floatright\">";
         $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "yes\" value=\"true\" " . $yes . " /><label for=\"" . $promise['pid'] . "yes\" class=\"yes\">Yes</label>";
         $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "no\" value=\"false\" " . $no . " /><label for=\"" . $promise['pid'] . "no\" class=\"no\">No</label>";
         $content .= "</span>" . $promise['promise'] . "</li>";

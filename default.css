@@ -41,12 +41,6 @@ ul#topmenu li a {
     margin: 20px auto 20px auto;
 }
 
-#content a {
-    color:#66bb66;
-    text-decoration: underline;
-}
-
-
 table.historytable {
     border: 0;
     font-size: 1em;
@@ -63,6 +57,11 @@ table.historytable td.promise {
     text-align: right;
     margin: 0 0 0 8px;
     border-bottom: 1px solid #dddddd;
+}
+
+table.historytable a {
+    color:#66bb66;
+    text-decoration: underline;
 }
 
 ul.enterlinks {
@@ -86,6 +85,8 @@ ul.enterlinks li {
 
 ul.enterlinks li a {
     font-weight: bold;
+    color:#66bb66;
+    text-decoration: underline;
 }
 
 div.summary {
@@ -136,12 +137,12 @@ span.missingentries a {
     font-weight: bold;
 }
 
-div.enterintro {
+div.centeredlistheader {
     margin:40px 20px 20px 20px;
     font-size:2em;
 }
 
-ul.enterlist {
+ul.centeredlist {
     list-style-type: none;
     width: 60%;
     margin:20px auto 20px auto;
@@ -154,26 +155,66 @@ ul.enterlist {
     -webkit-border-radius: 10px;
 }
 
-ul.enterlist li {
+ul.centeredlist li.item {
     margin: 1em 0 1em 0;
     font-weight: bold;
     border-bottom: 1px solid #888888;
 }
 
-ul.enterlist li span.yesno {
+ul.centeredlist li.noitem {
+    margin: 1em 0 1em 0;
+    font-weight: normal;
+    color: #888888;
+}
+
+ul.centeredlist li.item span.floatright {
+    font-weight: normal;
     float: right;
 }
 
-ul.enterlist li span.yesno input {
+ul.centeredlist li.item span.floatright input {
     margin-left: 20px;
 }
 
-ul.enterlist li span.yesno label.yes {
+ul.centeredlist li.item span.floatright label.yes {
+    font-weight: bold;
     color: #66bb66;
 }
 
-ul.enterlist li span.yesno label.no {
+ul.centeredlist li.item span.floatright label.no {
+    font-weight: bold;
     color: #bb6666;
+}
+
+ul.centeredlist li.item span.floatright a.remove {
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 2em;
+    color: #bb6666;
+}
+
+ul.centeredlist li.item span.floatright a.add {
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 2em;
+    color: #66bb66;
+}
+
+form.centeredform {
+    width: 60%;
+    margin:20px auto 20px auto;
+    padding:20px;
+    background: #eeeeee;
+    border: 3px solid #dddddd;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+form.centeredform input.newpromisefield {
+    font-weight: bold;
+    width: 30em;
 }
 
 div.entersubmitbutton {
@@ -205,6 +246,11 @@ div.backtoview {
     text-align: center;
     font-size: 1.2em;
     margin: 40px 0 40px 0;
+}
+
+div.backtoview a {
+    color:#66bb66;
+    text-decoration: underline;
 }
 
 #footer {

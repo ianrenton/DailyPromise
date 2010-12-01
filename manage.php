@@ -41,11 +41,15 @@ function makeCurrentPromises() {
     $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND active='1'";
     $promiseResult = mysql_query($query);
     
-    $content .= "<div>Currently running:</div><table>";
+    $content .= "<div class=\"centeredlistheader\">Currently running:</div><ul class=\"centeredlist\">";
+    
+    if (mysql_num_rows($promiseResult) == 0) {
+        $content .= "<li class=\"noitem\">You don't have any promises set up.  Use the \"Add another\" box below to add one.</li>";
+    }
     
     while ($promise = mysql_fetch_assoc($promiseResult)) {
     
-        $content .= "<tr><td>\"" . $promise['promise'] . "\"</td>";
+        $content .= "<li class=\"item\">";
     
         // Work out number of passes
         $query = "SELECT COUNT(*) FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($promise['pid']) . "' AND kept='YES'";
@@ -64,14 +68,15 @@ function makeCurrentPromises() {
         $earliestDate = $row['MIN(date)'];
 
         if ($pass+$fail <= 0) {
-            $content .= "<td>(No data for this promise yet.)</td>";
+            $content .= "<span class=\"floatright\">(No data for this promise yet.)";
         } else {
-            $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)</td>";
+            $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)";
         }
-        $content .= "<td><a href=\"/deactivate/" . $promise['pid'] . "\">X</a></td></tr>";
+        $content .= "<a href=\"/deactivate/" . $promise['pid'] . "\" class=\"remove\">Remove</a></span>";
+        $content .= "" . $promise['promise'] . "</li>";
     }
     
-    $content .= "</table>";
+    $content .= "</ul>";
     
     return $content;
 }
@@ -80,11 +85,11 @@ function makeCurrentPromises() {
 
 function makeNewPromises() {
     
-    $content .= "<div>Add another:</div><table>";
+    $content .= "<div class=\"centeredlistheader\">Add another:</div>";
     
-    $content .= "<form method=\"post\" action=\"/managecallback.php\">";
-    $content .= "<input type=\"text\" name=\"newpromise\" width=\"30\"/>";
-    $content .= "<input type=\"submit\" name=\"Submit\" value=\"Submit\">";
+    $content .= "<form class=\"centeredform\" method=\"post\" action=\"/managecallback.php\">";
+    $content .= "<input type=\"text\" name=\"newpromise\" class=\"newpromisefield\"/>";
+    $content .= "<input type=\"submit\" name=\"Submit\" value=\"Add\">";
     $content .= "</form>";
     
     return $content;
@@ -98,11 +103,15 @@ function makeOldPromises() {
     $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND active='0'";
     $promiseResult = mysql_query($query);
     
-    $content .= "<div>Fallen by the wayside:</div><table>";
+    $content .= "<div class=\"centeredlistheader\">Fallen by the wayside:</div><ul class=\"centeredlist\">";
+    
+    if (mysql_num_rows($promiseResult) == 0) {
+        $content .= "<li class=\"noitem\">You haven't deactivated any of your promises. Well done!</li>";
+    }
     
     while ($promise = mysql_fetch_assoc($promiseResult)) {
     
-        $content .= "<tr><td>\"" . $promise['promise'] . "\"</td>";
+        $content .= "<li class=\"item\">";
     
         // Work out number of passes
         $query = "SELECT COUNT(*) FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($promise['pid']) . "' AND kept='YES'";
@@ -121,11 +130,12 @@ function makeOldPromises() {
         $earliestDate = $row['MIN(date)'];
         $latestDate = $row['MAX(date)'];
         
-        $content .= "<td>(" . round($pass/($pass+$fail)*100) . "% success rate from " . date("j M Y", strtotime($earliestDate)) . " to " . date("j M Y", strtotime($latestDate)) . ".)</td>";
-        $content .= "<td><a href=\"/activate/" . $promise['pid'] . "\">^</a></td></tr>";
+        $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate from " . date("j M Y", strtotime($earliestDate)) . " to " . date("j M Y", strtotime($latestDate)) . ".)";
+        $content .= "<a href=\"/activate/" . $promise['pid'] . "\" class=\"add\">Add</a></span>";
+        $content .= "" . $promise['promise'] . "</li>";
     }
     
-    $content .= "</table>";
+    $content .= "</ul>";
     
     return $content;
 }
@@ -133,37 +143,8 @@ function makeOldPromises() {
 
 
 function makeTweetBoxes($date) {
-
-    $content = "<div>Thanks!</div>";
     
-    // How many are complete today?
-    $kept = 0;
-    $unkept = 0;
-    $waiting = 0;
-    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND date='" . mysql_real_escape_string($date) . "'";
-    $recordResult = mysql_query($query);
-    while ($record = mysql_fetch_assoc($recordResult)) {
-        if ($record['kept'] == "YES") $kept++;
-        if ($record['kept'] == "NO") $unkept++;
-        if ($record['kept'] == "WAITING") $waiting++;
-    }
-    $content .= "<div>";
-    // Friendly date
-    $today = date("Y-m-d", strtotime("today"));
-    if ($date == $today) {
-        $content = "Today";
-    } else {
-        $content = "On " . $date;
-    }
-    $content .= " you met " . $kept . " of your " . ($kept+$unkept) . " promise";
-    $content .= (($kept+$unkept)==1)?".":"s.";
-    if ($waiting > 0) {
-        $content .= "We're still waiting for information on " . $waiting . " promise";
-        $content .= ($waiting==1)?".":"s.";
-    }
-    $content .= "</div>";
-    
-    $content .= "<div><a href=\"/view\">Back to your monthly view</a></div>";
+    $content .= "<div class=\"backtoview\"><a href=\"/view\">Back to your monthly view</a></div>";
     
     return $content;
 }
