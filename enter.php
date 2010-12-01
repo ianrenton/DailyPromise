@@ -62,7 +62,7 @@ function makeTodaysEntry($date) {
     if ($date == $today) {
         $content = "<div class=\"enterintro\">Today, " . date("l jS F", strtotime($date)) . ", I...</div>";
     } else {
-        $content = "<div class=\"enterintro\">On " . date("l jS F", strtotime($date)) . " I...</div>";
+        $content = "<div class=\"enterintro\">On " . date("l jS F", strtotime($date)) . ", I...</div>";
     }
     
     $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul class=\"enterlist\">";
@@ -89,15 +89,15 @@ function makeTodaysEntry($date) {
             $no = "";
         }
     
-        $content .= "<li>" . $promise['promise'] . "<span>";
-        $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "yes\" value=\"true\" " . $yes . " /><label for=\"" . $promise['pid'] . "yes\">Yes</label>";
-        $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "no\" value=\"false\" " . $no . " /><label for=\"" . $promise['pid'] . "no\">No</label>";
-        $content .= "</span></li>";
+        $content .= "<li><span class=\"yesno\">";
+        $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "yes\" value=\"true\" " . $yes . " /><label for=\"" . $promise['pid'] . "yes\" class=\"yes\">Yes</label>";
+        $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "no\" value=\"false\" " . $no . " /><label for=\"" . $promise['pid'] . "no\" class=\"no\">No</label>";
+        $content .= "</span>" . $promise['promise'] . "</li>";
     }
     
     $content .= "</ul>";
     $content .= "<input type=\"hidden\" name=\"date\" value=\"" . $date . "\">";
-    $content .= "<input type=\"submit\" name=\"Submit\" value=\"Submit\">";
+    $content .= "<div class=\"entersubmitbutton\"><input type=\"submit\" name=\"Submit\" class=\"entersubmitbutton\" value=\"Submit\"></div>";
     $content .= "</form>";
     
     return $content;
@@ -107,7 +107,7 @@ function makeTodaysEntry($date) {
 
 function makeTweetBoxes($date) {
 
-    $content = "<div>Thanks!</div>";
+    $content = "<div class=\"thanks\">Thanks!</div>";
     
     // How many are complete today?
     $kept = 0;
@@ -120,13 +120,13 @@ function makeTweetBoxes($date) {
         if ($record['kept'] == "NO") $unkept++;
         if ($record['kept'] == "WAITING") $waiting++;
     }
-    $content .= "<div>";
+    $content .= "<div class=\"entersummary\">";
     // Friendly date
     $today = date("Y-m-d", strtotime("today"));
     if ($date == $today) {
-        $content = "Today";
+        $content .= "Today";
     } else {
-        $content = "On " . date("l jS F", strtotime($date));
+        $content .= "On " . date("l jS F", strtotime($date));
     }
     $content .= " you met " . $kept . " of your " . ($kept+$unkept+$waiting) . " promise";
     $content .= (($kept+$unkept+$waiting)==1)?".":"s.";
@@ -135,7 +135,7 @@ function makeTweetBoxes($date) {
     }
     $content .= "</div>";
     
-    $content .= "<div><a href=\"/view\">Back to your monthly view</a></div>";
+    $content .= "<div class=\"backtoview\"><a href=\"/view\">Back to your monthly view</a></div>";
     
     return $content;
 }

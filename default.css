@@ -138,11 +138,13 @@ span.missingentries a {
 
 div.enterintro {
     margin:40px 20px 20px 20px;
+    font-size:2em;
 }
 
 ul.enterlist {
     list-style-type: none;
-    margin:20px;
+    width: 60%;
+    margin:20px auto 20px auto;
     padding:0 20px 0 20px;
     background: #eeeeee;
     border: 3px solid #dddddd;
@@ -155,6 +157,54 @@ ul.enterlist {
 ul.enterlist li {
     margin: 1em 0 1em 0;
     font-weight: bold;
+    border-bottom: 1px solid #888888;
+}
+
+ul.enterlist li span.yesno {
+    float: right;
+}
+
+ul.enterlist li span.yesno input {
+    margin-left: 20px;
+}
+
+ul.enterlist li span.yesno label.yes {
+    color: #66bb66;
+}
+
+ul.enterlist li span.yesno label.no {
+    color: #bb6666;
+}
+
+div.entersubmitbutton {
+    width: 100px;
+    margin: 20px auto 20px auto;
+}
+
+div.entersubmitbutton input.entersubmitbutton {
+    width: 100px;
+    height: 40px;
+}
+
+div.thanks {
+    width: 60%;
+    margin:40px auto 0px auto;
+    font-size:1.5em;
+}
+
+div.entersummary {
+    clear:both;
+    width: 60%;
+    margin: 40px auto 0 auto;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+div.backtoview {
+    clear:both;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 40px 0 40px 0;
 }
 
 #footer {

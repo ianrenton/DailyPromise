@@ -52,9 +52,15 @@ function makeHistoryTable($uid) {
     $promiseResult = mysql_query($query);
     
     $dates = createDatesArray("D<b\\r>jS");
+    $today = date("D<b\\r>jS", strtotime("today"));
     $content .= "<table class=\"historytable\"><tr><td></td>";
     foreach ($dates as $date) {
-        $content .= "<td class=\"date\">" . $date . "</td>";
+        // Highlight today's date
+        if ($date == $today) {
+            $content .= "<td class=\"date\"><strong>" . $date . "</strong></td>";
+        } else {
+            $content .= "<td class=\"date\">" . $date . "</td>";
+        }
     }
     $content .= "</tr>";
     $dates = createDatesArray("Y-m-d");
