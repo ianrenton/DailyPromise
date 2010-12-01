@@ -18,7 +18,7 @@ if (isset($_GET['date'])) {
 }
 
 // Build the main display
-$content = makeOldEntryChecker($date);
+$content = makeOldEntryChecker();
 $content .= makeTodaysEntry($date);
 
 // If we're coming back from the callback
@@ -32,7 +32,7 @@ mysql_close();
 
 
 
-function makeOldEntryChecker($date) {
+function makeOldEntryChecker() {
     // Find the earliest "WAITING" record.
     $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND kept='WAITING' ORDER BY date ASC";
     $recordResult = mysql_query($query);
@@ -40,7 +40,8 @@ function makeOldEntryChecker($date) {
         $record = mysql_fetch_assoc($recordResult);
         $earliestDate = $record['date'];
         // If it's not today, prompt to fill in a past date.
-        if ($earliestDate != $date) {
+        $today = date("Y-m-d", strtotime("today"));
+        if ($earliestDate != $today) {
             $content .= "<div>You still have missing entries from " . $earliestDate . ".  <a href=\"/enter/" . $earliestDate . "\">Click here to complete them!</a></div>";
         }
     }
@@ -64,7 +65,7 @@ function makeTodaysEntry($date) {
         $content = "<div>On " . $date . " I...</div>";
     }
     
-    $content .= "<form method=\"post\" action=\"entercallback.php\"><ul>";
+    $content .= "<form method=\"post\" action=\"/entercallback.php\"><ul>";
     
     while ($promise = mysql_fetch_assoc($promiseResult)) {
     

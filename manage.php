@@ -82,7 +82,7 @@ function makeNewPromises() {
     
     $content .= "<div>Add another:</div><table>";
     
-    $content .= "<form method=\"post\" action=\"managecallback.php\">";
+    $content .= "<form method=\"post\" action=\"/managecallback.php\">";
     $content .= "<input type=\"text\" name=\"newpromise\" width=\"30\"/>";
     $content .= "<input type=\"submit\" name=\"Submit\" value=\"Submit\">";
     $content .= "</form>";

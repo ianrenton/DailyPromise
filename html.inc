@@ -5,13 +5,10 @@
   <head>
     <title>Daily Promise</title>
 	<link rel="shortcut icon" href="favicon.ico">
-	<link type="text/css" rel="stylesheet" media="all" href="default.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="/default.css" />
 	<!--[if lt IE 7]>
-      	<link type="text/css" rel="stylesheet" media="all" href="ie/ie.css" />
-      <![endif]-->
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.form.js"></script>
-	<script type="text/javascript" src="jquery.blockUI.js"></script>
+      	<link type="text/css" rel="stylesheet" media="all" href="/ie.css" />
+    <![endif]-->
 
   </head>
   <body>
