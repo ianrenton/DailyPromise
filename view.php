@@ -140,6 +140,7 @@ function makeSummary() {
         }
     }
     $thisWeek = round($kept/$total*100);
+    $recordsThisWeek = $total;
     
     $content = "<div class=\"summary\"><div>So far this week you have scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
     $content .= "<p class=\"percentage\">" . $thisWeek . "%</p>";
@@ -160,17 +161,32 @@ function makeSummary() {
     }
     $lastWeek = round($kept/$total*100);
     
-    $content .= "<div>Last week you have scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
+    $content .= "<div>Last week you scored " . $kept . " points out of a maximum of " . $total . ", or:</div>";
     $content .= "<p class=\"percentage\">" . $lastWeek . "%</p>";
     
-    if ($lastWeek < $thisWeek) {
-        $content .= "<p class=\"improvement\">Getting better!</p>";
+    $content .= "<p class=\"improvement\">";
+    if ($recordsThisWeek == 0) {
+        $content .= "Let's see how you do this week.";
+    } else if (($lastWeek == $thisWeek) && ($lastWeek == 100)) {
+        $content .= "Perfect all around, you're an inspiration!";
+    } else if (($lastWeek > $thisWeek) && ($lastWeek == 100)) {
+        $content .= "I guess perfection is hard to live up to!";
+    } else if (($lastWeek > $thisWeek) && ($lastWeek < $thisWeek + 15)) {
+        $content .= "Come on, you can get there!";
     } else if ($lastWeek > $thisWeek) {
-        $content .= "<p class=\"improvement\">Uh-oh, that's worse!</p>";
+        $content .= "You've got some work to do!";
+    } else if (($lastWeek > $thisWeek) && ($lastWeek > $thisWeek + 50)) {
+        $content .= "Are you having a difficult week?";
+    } else if ($thisWeek == 100) {
+        $content .= "You're on top form this week!";
+    } else if (($lastWeek < $thisWeek) && ($lastWeek < $thisWeek - 40)) {
+        $content .= "What an improvement! Keep it up!";
+    } else if ($lastWeek < $thisWeek) {
+        $content .= "Getting better by the day!";
     } else {
-        $content .= "<p class=\"improvement\">Keeping steady!</p>";
+        $content .= "No news is good news?";
     }
-    $content .= "</div>";
+    $content .= "</p></div>";
     
     return $content;
 }
