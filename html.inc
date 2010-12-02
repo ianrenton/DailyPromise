@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <head>
     <title>Daily Promise</title>
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" href="/favicon.ico">
 	<link type="text/css" rel="stylesheet" media="all" href="/default.css" />
 
   </head>
