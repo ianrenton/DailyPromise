@@ -15,11 +15,11 @@
 	<SCRIPT LANGUAGE="JavaScript" SRC="javascript.js"></SCRIPT>
 	
     <div id="header">
-        <a href="/" id="sitename">Daily Promise</a>
+        <a href="/" id="sitename"><img src="/images/logo.png" alt="Daily Promise" title="Daily Promise"/></a>
         <?php echo($headerContent); ?>
     </div>
     
-	<div id="content"><?php echo($content); ?></div>
+	<div id="<?php echo($contentPage); ?>content"><?php echo($content); ?></div>
 	
     <div id="footer">Daily Promise is a website by Ian Renton.</div>
 	
