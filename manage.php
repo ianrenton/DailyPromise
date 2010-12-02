@@ -86,6 +86,7 @@ function makeCurrentPromises() {
 function makeNewPromises() {
     
     $content .= "<div class=\"centeredlistheader\">Add another:</div>";
+    $content .= "<p class=\"publicwarning\">Just so you know, other users can see what promises you have set. Please don't enter anything really personal.</p>";
     
     $content .= "<form class=\"centeredform\" method=\"post\" action=\"/managecallback.php\">";
     $content .= "<input type=\"text\" name=\"newpromise\" class=\"newpromisefield\"/>";

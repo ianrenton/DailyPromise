@@ -223,6 +223,10 @@ div.centeredlistheader {
     font-size:2em;
 }
 
+p.publicwarning {
+    margin-left:60px;
+}
+
 ul.centeredlist {
     list-style-type: none;
     width: 60%;
