@@ -7,7 +7,7 @@ define("CONSUMER_KEY", "");
 define("CONSUMER_SECRET", "");
 
 // Change this to point to your web server
-define("OAUTH_CALLBACK", "http://www.successwhale.com/callback.php");
+define("OAUTH_CALLBACK", "http://dailypromise/callback.php");
 
 // MySQL Database Stuff.  Leave these blank if you don't want to use a database.
 // (with no DB, you won't be able to save user column settings, cache links, or
