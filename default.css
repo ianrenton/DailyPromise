@@ -127,6 +127,11 @@ table.historytable {
     font-size: 1em;
 }
 
+table.historytable td {
+    height: 1em;
+    white-space:nowrap;
+}
+
 table.historytable td.month {
     font-size: 0.8em;
     padding: 0 4px 0 4px;
