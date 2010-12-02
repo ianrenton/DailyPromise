@@ -33,13 +33,24 @@ ul#topmenu li {
     display: inline;
     margin-right: 1em;
     font-weight: bold;
-    color: #ffee66;
 }
 
 ul#topmenu li a {
     font-weight: bold;
     text-decoration: none;
     color: white;
+}
+
+ul#topmenu li a:hover {
+    text-decoration: underline;
+}
+
+ul#topmenu li a.username {
+    color: #ffee66;
+}
+
+ul#topmenu li a.username:hover {
+    text-decoration: none;
 }
 
 #content {
