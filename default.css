@@ -32,11 +32,9 @@ ul#topmenu {
 ul#topmenu li {
     display: inline;
     margin-right: 1em;
-    font-weight: bold;
 }
 
 ul#topmenu li a {
-    font-weight: bold;
     text-decoration: none;
     color: white;
 }
