@@ -391,6 +391,18 @@ p.error {
     font-weight: bold;
 }
 
+div.tweetbox {
+	width: 600px;
+    margin:0 auto 0 auto;
+    padding:10px;
+    background: #eeffee;
+    border: 3px solid #cceecc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
 #footer {
     clear:both;
     width:80%;

@@ -22,12 +22,18 @@ if (isset($_GET['date'])) {
 
 // Build the main display
 $content .= makeCurrentPromises();
+
+// If we're coming back from the callback
+if (isset($_GET['newpid'])) {
+    $content .= makeTweetBoxes($_GET['newpid']);
+}
+
 $content .= makeNewPromises();
 $content .= makeOldPromises();
 
 // If we're coming back from the callback
 if (isset($_GET['done'])) {
-    $content .= makeTweetBoxes($date);
+    $content .= makeReturnLink($date);
 }
 
 include('html.inc');
@@ -146,11 +152,35 @@ function makeOldPromises() {
 }
 
 
+function makeTweetBoxes($pid) {
+	$query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($pid) . "'";
+    $promiseResult = mysql_query($query);
+	$promise = mysql_fetch_assoc($promiseResult);
+	$query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+    $userResult = mysql_query($query);
+    $row = mysql_fetch_assoc($userResult);
 
-function makeTweetBoxes($date) {
-    
+	$tweet = "I just made a new promise, \\\"";
+   	$tweet .= $promise['promise'];
+	$tweet .= "\\\"!  Follow my progress at http://dp.onlydreaming.net/user/" . $row['username'];
+	$content .= '<div id="tweetbox" class="tweetbox"><img src="/images/ajax-loader.gif" /> Loading Tweet form...</div>
+					<script type="text/javascript">
+					  twttr.anywhere(function (T) {
+					    T("#tweetbox").tweetBox({
+					      height: 50,
+					      width: 600,
+						  label: "You activated a new promise! Tweet about it?",
+					      defaultContent: "' . $tweet . '"
+					    });
+					  });
+					</script>';
+    return $content;
+}
+
+
+
+function makeReturnLink() {
     $content .= "<div class=\"backtoview\"><a href=\"/view\">Back to your monthly view</a></div>";
-    
     return $content;
 }
 

@@ -6,7 +6,7 @@
     <title>Daily Promise</title>
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link type="text/css" rel="stylesheet" media="all" href="/default.css" />
-
+	<script src="http://platform.twitter.com/anywhere.js?id=aTluCSNqhyz2mRNVLth1ZQ&v=1" type="text/javascript"></script>
   </head>
   <body>
 	

@@ -27,6 +27,7 @@ $content .= makeTodaysEntry($date);
 // If we're coming back from the callback
 if (isset($_GET['done'])) {
     $content .= makeTweetBoxes($date);
+    $content .= makeReturnLink();
 }
 
 include('html.inc');
@@ -114,7 +115,7 @@ function makeTodaysEntry($date) {
 
 function makeTweetBoxes($date) {
 
-    $content = "<div class=\"thanks\">Thanks!</div>";
+    //$content = "<div class=\"thanks\">Thanks!</div>";
     
     // How many are complete today?
     $kept = 0;
@@ -127,23 +128,47 @@ function makeTweetBoxes($date) {
         if ($record['kept'] == "NO") $unkept++;
         if ($record['kept'] == "WAITING") $waiting++;
     }
-    $content .= "<div class=\"entersummary\">";
-    // Friendly date
-    $today = date("Y-m-d", strtotime("today"));
-    if ($date == $today) {
-        $content .= "Today";
-    } else {
-        $content .= "On " . date("l jS F", strtotime($date));
-    }
-    $content .= " you met " . $kept . " of your " . ($kept+$unkept+$waiting) . " promise";
-    $content .= (($kept+$unkept+$waiting)==1)?".":"s.";
-    if ($waiting > 0) {
-        $content .= "We're still waiting for information on " . $waiting . " of them.";
-    }
-    $content .= "</div>";
+	$today = date("Y-m-d", strtotime("today"));
     
+
+	// Offer tweet box if we're done and it's today, otherwise just a plain summary.
+	if (($waiting == 0) && ($date == $today)) {
+		$tweet = "Today I kept " . $kept . " of my " . ($kept+$unkept+$waiting) . " promise";
+    	$tweet .= (($kept+$unkept+$waiting)==1)?".":"s.";
+		$query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+        $userResult = mysql_query($query);
+        $row = mysql_fetch_assoc($userResult);
+		$tweet .= "  Follow my progress at http://dp.onlydreaming.net/user/" . $row['username'];
+		$content .= '<div id="tweetbox" class="tweetbox"><img src="/images/ajax-loader.gif" /> Loading Tweet form...</div>
+						<script type="text/javascript">
+						  twttr.anywhere(function (T) {
+						    T("#tweetbox").tweetBox({
+						      height: 50,
+						      width: 600,
+							  label: "Today\'s record is complete. Tweet about it?",
+						      defaultContent: "' . $tweet . '"
+						    });
+						  });
+						</script>';
+	} else {
+		$content .= "<div class=\"entersummary\">";
+	    if ($date == $today) {
+	        $content .= "Today";
+	    } else {
+	        $content .= "On " . date("l jS F", strtotime($date));
+	    }
+	    $content .= " you kept " . $kept . " of your " . ($kept+$unkept+$waiting) . " promise";
+	    $content .= (($kept+$unkept+$waiting)==1)?".":"s.";
+	    if ($waiting > 0) {
+	        $content .= "We're still waiting for information on " . $waiting . " of them.";
+	    }
+	    $content .= "</div>";
+	}
+    return $content;
+}
+
+function makeReturnLink() {
     $content .= "<div class=\"backtoview\"><a href=\"/view\">Back to your monthly view</a></div>";
-    
     return $content;
 }
 
