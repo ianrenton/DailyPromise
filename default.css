@@ -133,6 +133,10 @@ div.altloginbox p input{
     margin-bottom: 10px;
 }
 
+div.historytable {
+    overflow-x: auto;
+}
+
 table.historytable {
     border: 0;
     font-size: 1em;

@@ -78,7 +78,77 @@ function makeHistoryTable($uid) {
     $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "'";
     $promiseResult = mysql_query($query);
     
-    $content .= "<iframe src=\"/historytable.php?uid=" . $uid . "\" width=\"100%\" height=\"" . ((mysql_num_rows($promiseResult)+4.5) * 21) . "\"px frameborder=\"0\" noresize>Your browser does not support iframes.</iframe>";
+    $content .= "<div class=\"historytable\"><table class=\"historytable\"><tr><td></td>";
+    
+    // Make the month headers
+    $months = createDatesArray("F");
+    $month1 = $months[0];
+    for ($i = 1; $i <= 28; $i++) {
+        if ($months[$i] != $month1) {
+            $month2 = $months[$i];
+            $switchpoint = $i;
+            break;
+        }
+    }
+    // Shorten if only 1 day width to fit it in
+    if ($switchpoint == 1) {
+        $month1 = substr($month1,0,3);
+    } else if ($switchpoint == 27) {
+        $month2 = substr($month2,0,3);
+    }
+    $content .= "<td class=\"month\" colspan=" . $switchpoint . ">" . $month1 . "</td>";
+    if ($switchpoint < 28) {
+        $content .= "<td class=\"month\" colspan=" . (28-$switchpoint) . ">" . $month2 . "</td>";
+    }
+    $content .= "</tr>";
+    
+    // Make the date headers
+    $content .= "<tr><td></td>";
+    $dates = createDatesArray("D<b\\r>jS");
+    $today = date("D<b\\r>jS", strtotime("today"));
+    foreach ($dates as $date) {
+        // Highlight today's date
+        if ($date == $today) {
+            $content .= "<td class=\"date\"><strong>" . $date . "</strong></td>";
+        } else {
+            $content .= "<td class=\"date\">" . $date . "</td>";
+        }
+    }
+    $content .= "</tr>";
+    $dates = createDatesArray("Y-m-d");
+    while ($promise = mysql_fetch_assoc($promiseResult)) {
+        $content .= "<tr><td class=\"promise\">" . $promise['promise'] . "</td>";
+        foreach ($dates as $date) {
+            $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND pid='" . mysql_real_escape_string($promise['pid']) . "' AND date='" . mysql_real_escape_string($date) . "'";
+            $recordResult = mysql_query($query);
+            if (mysql_num_rows($recordResult) > 0) {
+                $row = mysql_fetch_assoc($recordResult);
+                if ($row['kept'] == "YES") {
+                    $color = "#88ff88";
+                } else if ($row['kept'] == "NO") {
+                    $color = "#ff8888";
+                } else /* WAITING */ {
+                    $color = "#bbbbbb";
+                }
+            } else {
+                $color = "#dddddd";
+            }
+            $content .= "<td style=\"background:" . $color . "\">" . $kept . "</td>";
+        }
+        $content .= "</tr>";
+        
+    }
+    // User is generating their own table, offer a link to add more promises.
+    if ($_SESSION['uid'] == $uid) {
+        $content .= "<tr><td class=\"promise\"><a href=\"/manage\" target=\"_top\">add a";
+        if (mysql_num_rows($promiseResult) > 0) { $content .= "nother"; }
+        $content .= " promise?</a></td></tr>";
+    } else if (mysql_num_rows($promiseResult) == 0) {
+        // Other user's blank table
+        $content .= "<tr><td class=\"promise\">no promises set yet!</td></tr>";
+    }
+    
+    $content .= "</table></div>";
     
     return $content;
     
