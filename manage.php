@@ -91,7 +91,7 @@ function makeNewPromises() {
     $content .= "<form class=\"centeredform\" method=\"post\" action=\"/managecallback.php\">";
     $content .= "<input type=\"text\" name=\"newpromise\" class=\"newpromisefield\"/>";
     $content .= "<input type=\"submit\" name=\"Submit\" value=\"Add\"><br/>";
-    $content .= "<input type=\"checkbox\" name=\"doyesterday\" id=\"doyesterday\" checked/><label for=\"doyesterday\">Let me add data for yesterday, too!</label>";
+    $content .= "<input type=\"checkbox\" name=\"doyesterday\" id=\"doyesterday\" checked/><label for=\"doyesterday\">I want to get started right away - let me add yesterday's data!</label>";
     $content .= "</form>";
     
     return $content;
