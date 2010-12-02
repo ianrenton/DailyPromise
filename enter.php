@@ -139,7 +139,7 @@ function makeTweetBoxes($date) {
         $userResult = mysql_query($query);
         $row = mysql_fetch_assoc($userResult);
 		$tweet .= "  Follow my progress at http://dp.onlydreaming.net/user/" . $row['username'];
-		$content .= '<div id="tweetbox" class="tweetbox"><img src="/images/ajax-loader.gif" /> Loading Tweet form...</div>
+		$content .= '<div id="tweetbox" class="tweetbox"></div>
 						<script type="text/javascript">
 						  twttr.anywhere(function (T) {
 						    T("#tweetbox").tweetBox({

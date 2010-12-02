@@ -163,7 +163,7 @@ function makeTweetBoxes($pid) {
 	$tweet = "I just made a new promise, \\\"";
    	$tweet .= $promise['promise'];
 	$tweet .= "\\\"!  Follow my progress at http://dp.onlydreaming.net/user/" . $row['username'];
-	$content .= '<div id="tweetbox" class="tweetbox"><img src="/images/ajax-loader.gif" /> Loading Tweet form...</div>
+	$content .= '<div id="tweetbox" class="tweetbox"></div>
 					<script type="text/javascript">
 					  twttr.anywhere(function (T) {
 					    T("#tweetbox").tweetBox({
