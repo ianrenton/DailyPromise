@@ -32,6 +32,8 @@ ul#topmenu {
 ul#topmenu li {
     display: inline;
     margin-right: 1em;
+    font-weight: bold;
+    color: #ffee66;
 }
 
 ul#topmenu li a {

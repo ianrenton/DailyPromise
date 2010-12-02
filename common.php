@@ -21,6 +21,7 @@ function makeLinksForm() {
 	
     if (isset($_SESSION['uid'])) {
     	$content = '<div><ul id="topmenu">';
+        $content .= '<li>@' . $_SESSION['thisUser'] . '</li>';
     	$content .= '<li><a href="/view">view</a></li>';
     	$content .= '<li><a href="/enter">enter</a></li>';
     	$content .= '<li><a href="/manage">manage</a></li>';

@@ -29,6 +29,7 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
                 // Save accesstoken cookie
                 setcookie('access_token', serialize($access_token), mktime()+86400*365);
 
+                $_SESSION['thisUser'] = mysql_result($result, 0, "username");
                 $_SESSION['uid'] = mysql_result($result, 0, "uid");
                 $_SESSION['status'] = 'verified';
                 
