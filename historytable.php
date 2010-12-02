@@ -103,7 +103,7 @@ function makeHistoryTable($uid) {
     }
     // User is generating their own table, offer a link to add more promises.
     if ($_SESSION['uid'] == $uid) {
-        $content .= "<tr><td class=\"promise\"><a href=\"/manage\">add a";
+        $content .= "<tr><td class=\"promise\"><a href=\"/manage\" target=\"_top\">add a";
         if (mysql_num_rows($promiseResult) > 0) { $content .= "nother"; }
         $content .= " promise?</a></td></tr>";
     } else if (mysql_num_rows($promiseResult) == 0) {
