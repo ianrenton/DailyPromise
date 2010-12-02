@@ -10,13 +10,12 @@ require_once('config.php');
 mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 @mysql_select_db(DB_NAME) or die( "Unable to select database");
 
-// Get user id for display, either from a username lookup (/user/blah) or from session (/view).
-if (isset($_GET['username'])) {
-    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_GET['username']) . "'";
-    $userResult = mysql_query($query);
-    $row = mysql_fetch_assoc($userResult);
-    $uid = $row['uid'];
+// Get user id for display, either from a username lookup (/user/blah - view.php passes in uid) or from session (/view).
+if (isset($_GET['uid'])) {
+    $uid = $_GET['uid'];
 } else {
+	// Require authentication for this page if running from session id
+	auth();
     $uid = $_SESSION['uid'];
 }
 

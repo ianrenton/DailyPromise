@@ -17,6 +17,8 @@ if (isset($_GET['username'])) {
     $row = mysql_fetch_assoc($userResult);
     $uid = $row['uid'];
 } else {
+	// Require authentication for this page if running from session id
+	auth();
     $uid = $_SESSION['uid'];
     
     // Insert today's "waiting" records for active user if they're not already there
@@ -76,7 +78,7 @@ function makeHistoryTable($uid) {
     $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "'";
     $promiseResult = mysql_query($query);
     
-    $content .= "<iframe src=\"/historytable.php\" width=\"100%\" height=\"" . ((mysql_num_rows($promiseResult)+4.5) * 21) . "\"px frameborder=\"0\" noresize>Your browser does not support iframes.</iframe>";
+    $content .= "<iframe src=\"/historytable.php?uid=" . $uid . "\" width=\"100%\" height=\"" . ((mysql_num_rows($promiseResult)+4.5) * 21) . "\"px frameborder=\"0\" noresize>Your browser does not support iframes.</iframe>";
     
     return $content;
     
