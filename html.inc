@@ -6,13 +6,9 @@
     <title>Daily Promise</title>
 	<link rel="shortcut icon" href="favicon.ico">
 	<link type="text/css" rel="stylesheet" media="all" href="/default.css" />
-	<!--[if lt IE 7]>
-      	<link type="text/css" rel="stylesheet" media="all" href="/ie.css" />
-    <![endif]-->
 
   </head>
   <body>
-	<SCRIPT LANGUAGE="JavaScript" SRC="javascript.js"></SCRIPT>
 	
     <div id="header">
         <a href="/" id="sitename"><img src="/images/logo.png" alt="Daily Promise" title="Daily Promise"/></a>
@@ -22,9 +18,5 @@
 	<div id="<?php echo($contentPage); ?>content"><?php echo($content); ?></div>
 	
     <div id="footer">Daily Promise is a website by Ian Renton.</div>
-	
-    <SCRIPT LANGUAGE="JavaScript">
-        window.onload=init();
-    </SCRIPT>
 
 </body></html>
