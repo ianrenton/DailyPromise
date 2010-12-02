@@ -13,8 +13,7 @@ if (!isset($_SESSION['uid'])) {
     }
 
     /* If access tokens are not available redirect to connect page. */
-    // TODO Re-enable once we have net access
-    /*if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
         header('Location: ./clearsessions.php');
     	die();
     }
@@ -31,9 +30,7 @@ if (!isset($_SESSION['uid'])) {
     // Session-global the stuff that doesn't depend on which column we're rendering
     $auth = $to->get('account/verify_credentials', array());
     $_SESSION['thisUser'] = $auth['screen_name'];
-    $_SESSION['utcOffset'] = $auth['utc_offset'];*/
-    $_SESSION['thisUser'] = "tsuki_chama";
-    $_SESSION['utcOffset'] = 0;
+    $_SESSION['utcOffset'] = $auth['utc_offset'];
 
 
     // Auth error handling
