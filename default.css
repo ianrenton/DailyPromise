@@ -144,13 +144,13 @@ table.historytable td {
 }
 
 table.historytable td.month {
-    font-size: 0.8em;
+    font-size: 0.7em;
     padding: 0 4px 0 4px;
     background-color: #eeeeee;
 }
 
 table.historytable td.date {
-    font-size: 0.8em;
+    font-size: 0.7em;
     text-align: center;
     padding: 0 4px 0 4px;
 }
