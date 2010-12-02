@@ -76,9 +76,34 @@ function makeHistoryTable($uid) {
     $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "'";
     $promiseResult = mysql_query($query);
     
+    $content .= "<table class=\"historytable\"><tr><td></td>";
+    
+    // Make the month headers
+    $months = createDatesArray("F");
+    $month1 = $months[0];
+    for ($i = 1; $i <= 28; $i++) {
+        if ($months[$i] != $month1) {
+            $month2 = $months[$i];
+            $switchpoint = $i;
+            break;
+        }
+    }
+    // Shorten if only 1 day width to fit it in
+    if ($switchpoint == 1) {
+        $month1 = substr($month1,0,3);
+    } else if ($switchpoint == 27) {
+        $month2 = substr($month2,0,3);
+    }
+    $content .= "<td class=\"month\" colspan=" . $switchpoint . ">" . $month1 . "</td>";
+    if ($switchpoint < 28) {
+        $content .= "<td class=\"month\" colspan=" . (28-$switchpoint) . ">" . $month2 . "</td>";
+    }
+    $content .= "</tr>";
+    
+    // Make the date headers
+    $content .= "<tr><td></td>";
     $dates = createDatesArray("D<b\\r>jS");
     $today = date("D<b\\r>jS", strtotime("today"));
-    $content .= "<table class=\"historytable\"><tr><td></td>";
     foreach ($dates as $date) {
         // Highlight today's date
         if ($date == $today) {
@@ -141,7 +166,7 @@ function makeEnterLink() {
         $earliestDate = $record['date'];
         // If it's not today, prompt to fill in a past date.
         if ($earliestDate != $date) {
-            $content .= "<li><a href=\"/enter/" . $earliestDate . "\">Fill in data for " . $earliestDate . "</a></li>";
+            $content .= "<li><a href=\"/enter/" . $earliestDate . "\">Fill in data for " . date("l jS F", strtotime($earliestDate)) . "</a></li>";
         }
     }
     

@@ -42,7 +42,7 @@ function makeOldEntryChecker($date) {
         // If it's not today, prompt to fill in a past date.
         $today = date("Y-m-d", strtotime("today"));
         if (($earliestDate != $today) && ($earliestDate != $date)) {
-            $content .= "<div class=\"missingentries\"><span class=\"missingentries\">You still have missing entries from " . $earliestDate . ".  <a href=\"/enter/" . $earliestDate . "\">Click here to complete them!</a></span></div>";
+            $content .= "<div class=\"missingentries\"><span class=\"missingentries\">You still have missing entries from " . date("l jS F", strtotime($earliestDate)) . ".  <a href=\"/enter/" . $earliestDate . "\">Click here to complete them!</a></span></div>";
         }
     }
     return $content;
