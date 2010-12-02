@@ -45,6 +45,11 @@ if (isset($_POST['newpromise'])) {
     mysql_query($query);
     $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "', 'WAITING')";
     mysql_query($query);
+    // Add "WAITING" for yesterday if requested.
+    if (isset($_POST['doyesterday'])) {
+        $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("yesterday"))) . "', 'WAITING')";
+        mysql_query($query);
+    }
 }
 
 mysql_close();
