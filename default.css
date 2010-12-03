@@ -111,7 +111,7 @@ div.twitterloginbox a {
 div.topusersbox {
     width:100%;
     margin: 0 0 20px 0;
-    background: #eeffee;
+    background: #ddffdd;
     padding: 0 10px 0 10px;
     border: 3px solid #cceecc;
     border-radius: 10px;
@@ -234,7 +234,7 @@ ul.enterlinks {
     float: right;
     margin:0;
     padding:10px;
-    background: #eeffee;
+    background: #ddffdd;
     border: 3px solid #cceecc;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -274,7 +274,7 @@ p.improvement {
     color: #66bb66;
     margin:0.3em 0 0.3em 0;
     padding:10px;
-    background: #eeffee;
+    background: #ddffdd;
     border: 3px solid #cceecc;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -289,7 +289,7 @@ div.missingentries {
 span.missingentries {
     margin:0;
     padding:10px;
-    background: #eeffee;
+    background: #ddffdd;
     border: 3px solid #cceecc;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -482,7 +482,7 @@ div.tweetbox {
 	width: 600px;
     margin:0 auto 0 auto;
     padding:10px;
-    background: #eeffee;
+    background: #ddffdd;
     border: 3px solid #cceecc;
     border-radius: 10px;
     -moz-border-radius: 10px;
