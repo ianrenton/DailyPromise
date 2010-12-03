@@ -47,6 +47,10 @@ ul#topmenu li a.username {
     color: #ffee66;
 }
 
+ul#topmenu li a.lowpriority {
+    color: #99cc99;
+}
+
 ul#topmenu li a.username:hover {
     text-decoration: none;
 }
@@ -367,6 +371,40 @@ ul.centeredlist li.item span.floatright a.add {
     text-decoration: none;
     margin-left: 2em;
     color: #66bb66;
+}
+
+ul.friendslist {
+    list-style-type: none;
+    width: 60%;
+    margin:20px auto 20px auto;
+    padding:0 20px 0 20px;
+    background: #eeeeee;
+    border: 3px solid #dddddd;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+ul.friendslist li.friend {
+    margin: 10px 0 10px 0;
+}
+
+ul.friendslist li.friend div.friendpercentage {
+	color:#888888;
+}
+
+ul.friendslist li.friend div.friendname {
+    font-size: 2em;
+}
+
+ul.friendslist li.friend div.friendname a {
+    color: black;
+    text-decoration: none;
+}
+
+ul.friendslist li.friend div.friendpromises {
+    color:#888888;
 }
 
 form.centeredform {

@@ -24,8 +24,9 @@ function makeLinksForm() {
     	$content .= '<li><a href="/view">view</a></li>';
     	$content .= '<li><a href="/enter">enter</a></li>';
     	$content .= '<li><a href="/manage">manage</a></li>';
-    	$content .= '<li><a href="/configure">configure</a></li>';
-    	$content .= '<li><a href="/logout">log out</a></li>';
+        $content .= '<li><a href="/friends">friends</a></li>';
+    	$content .= '<li><a href="/configure" class="lowpriority">configure</a></li>';
+    	$content .= '<li><a href="/logout" class="lowpriority">log out</a></li>';
         $content .= '</ul></div>';
     }
 	return $content;

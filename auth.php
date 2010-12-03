@@ -31,8 +31,8 @@ function auth() {
 	    // Session-global the stuff that doesn't depend on which column we're rendering
 	    $auth = $to->get('account/verify_credentials', array());
 	    $_SESSION['thisUser'] = $auth['screen_name'];
+	    $_SESSION['twitter_uid'] = $auth['id'];
 	    $_SESSION['utcOffset'] = $auth['utc_offset'];
-
 
 	    // Auth error handling
 	    if ($auth["error"] == '<') {
@@ -50,22 +50,24 @@ function auth() {
 	    @mysql_select_db(DB_NAME) or die( "Unable to select database");
 
 	    // Port users across from OAuth provider
-	    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_SESSION['thisUser']) . "'";
+	    $query = "SELECT * FROM users WHERE twitter_uid='" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
 	    $result = mysql_query($query);
 	    if (!mysql_num_rows($result) ) {
 	        // If user is a first-time visitor, add a row for them.
-	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1')";
+	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1')";
 	        mysql_query($query);
 	        $firstTime = true;
 	    } else {
-	        // If user is in the users table, update their access token
-	        $query = "UPDATE users SET auth_token = '" . mysql_real_escape_string(serialize($access_token)) . "' WHERE username = '" . mysql_real_escape_string($_SESSION['thisUser']) . "'";
+	        // If user is in the users table, update their access token (and username, just in case it changed)
+	        $query = "UPDATE users SET auth_token = '" . mysql_real_escape_string(serialize($access_token)) . "' WHERE twitter_uid = '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
+	        mysql_query($query);
+	        $query = "UPDATE users SET username = '" . mysql_real_escape_string($_SESSION['thisUser']) . "' WHERE twitter_uid = '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
 	        mysql_query($query);
 	        $firstTime = false;
 	    }
 
 	    // Get uid
-	    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_SESSION['thisUser']) . "'";
+	    $query = "SELECT * FROM users WHERE twitter_uid='" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
 	    $result = mysql_query($query);
 	    $userRow = mysql_fetch_assoc($result);
 	    $_SESSION['uid'] = $userRow['uid'];
