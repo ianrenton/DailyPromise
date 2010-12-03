@@ -1,7 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC');
-
 /* Load required lib files. */
 session_start();
 require_once('config.php');
@@ -11,8 +9,49 @@ mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 
 
 // Setup for every page
-date_default_timezone_set('UTC');
+setTimeZoneByOffset($_SESSION['utcOffset']);
 $headerContent = makeLinksForm();
+
+
+// Hack to set the PHP timezone from Twitter's UTC offset value.
+// For non-logged-in users, $offset will be null (=>0) so it
+// will use Europe/London.
+function setTimeZoneByOffset($offset) {
+	$offset = ((float)$offset)/3600.0;
+	$timezones = array( 
+        '-12'=>'Pacific/Kwajalein', 
+        '-11'=>'Pacific/Samoa', 
+        '-10'=>'Pacific/Honolulu', 
+        '-9'=>'America/Juneau', 
+        '-8'=>'America/Los_Angeles', 
+        '-7'=>'America/Denver', 
+        '-6'=>'America/Mexico_City', 
+        '-5'=>'America/New_York', 
+        '-4'=>'America/Caracas', 
+        '-3.5'=>'America/St_Johns', 
+        '-3'=>'America/Argentina/Buenos_Aires', 
+        '-2'=>'Atlantic/Azores',// no cities here so just picking an hour ahead 
+        '-1'=>'Atlantic/Azores', 
+        '0'=>'Europe/London', 
+        '1'=>'Europe/Paris', 
+        '2'=>'Europe/Helsinki', 
+        '3'=>'Europe/Moscow', 
+        '3.5'=>'Asia/Tehran', 
+        '4'=>'Asia/Baku', 
+        '4.5'=>'Asia/Kabul', 
+        '5'=>'Asia/Karachi', 
+        '5.5'=>'Asia/Calcutta', 
+        '6'=>'Asia/Colombo', 
+        '7'=>'Asia/Bangkok', 
+        '8'=>'Asia/Singapore', 
+        '9'=>'Asia/Tokyo', 
+        '9.5'=>'Australia/Darwin', 
+        '10'=>'Pacific/Guam', 
+        '11'=>'Asia/Magadan', 
+        '12'=>'Asia/Kamchatka');
+	date_default_timezone_set($timezones[$offset]);
+} 
+
 
 
 // Generates the top-right links for logged in users
