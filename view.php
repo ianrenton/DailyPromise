@@ -23,7 +23,7 @@ if (isset($_GET['username'])) {
     $titleText = " - My View";
     
     // Insert today's "waiting" records for active user if they're not already there
-    addTodaysWaitingRecords();
+    addTodaysWaitingRecords($uid);
 }
 
 // Build the main display
@@ -52,30 +52,6 @@ function makeUserBio() {
     $content .= "<div class=\"centeredlistheader\">@" . $_GET['username'] . "</div>";
     
     return $content;
-}
-
-
-
-
-function addTodaysWaitingRecords() {
-    $date = date("Y-m-d", strtotime("today"));
-    
-    // Get list of promises
-    $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND active='1'";
-    $promiseResult = mysql_query($query);
-    
-    // For each promise...
-    while ($promise = mysql_fetch_assoc($promiseResult)) {
-        // Check for existing entry for today
-        $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($promise['pid']) . "' AND date='" . mysql_real_escape_string($date) . "'";
-        $recordResult = mysql_query($query);
-        
-        // If absent, add a "waiting" entry.
-        if (mysql_num_rows($recordResult) == 0) {
-            $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($promise['pid']) . "', '" . mysql_real_escape_string($date) . "', 'WAITING')";
-            mysql_query($query);
-        }
-    }
 }
 
 

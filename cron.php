@@ -13,6 +13,7 @@ $query = "SELECT * FROM users";
 $userResult = mysql_query($query);
 while ($user = mysql_fetch_assoc($userResult)) {
     updateCachedStats($user['uid']);
+	addTodaysWaitingRecords($user['uid']);
 }
 
 
