@@ -4,6 +4,9 @@ session_start();
 require_once('config.php');
 require_once('common.php');
 
+// Titlebar text
+$titleText = "";
+
 if (isset($_GET['response'])) {
     if ($_GET['response'] == "accountdeleted") {
         $content .= '<p class="good">Your account has been removed, as requested.</p>';

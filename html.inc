@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <head>
-    <title>Daily Promise</title>
+    <title>Daily Promise<?php echo($titleText); ?></title>
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link type="text/css" rel="stylesheet" media="all" href="/default.css" />
 	<script src="http://platform.twitter.com/anywhere.js?id=aTluCSNqhyz2mRNVLth1ZQ&v=1" type="text/javascript"></script>

@@ -16,10 +16,12 @@ if (isset($_GET['username'])) {
     $userResult = mysql_query($query);
     $row = mysql_fetch_assoc($userResult);
     $uid = $row['uid'];
+    $titleText = " - @" . $_GET['username'] . "'s Profile";
 } else {
 	// Require authentication for this page if running from session id
 	auth();
     $uid = $_SESSION['uid'];
+    $titleText = " - My View";
     
     // Insert today's "waiting" records for active user if they're not already there
     addTodaysWaitingRecords();

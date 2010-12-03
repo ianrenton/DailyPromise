@@ -8,6 +8,9 @@ require_once('common.php');
 // Require authentication for this page
 auth();
 
+// Titlebar text
+$titleText = " - Enter Data";
+
 // DB connection
 mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 @mysql_select_db(DB_NAME) or die( "Unable to select database");
