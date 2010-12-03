@@ -27,7 +27,7 @@ $content .= '<div class="homepageright">';
 if (!isset($_SESSION['uid'])) {
     $content .= '<div class="twitterloginbox"><p><a href="/twittersignin"><strong>To sign in or register, click here:</strong><br/><img src="./images/lighter.png" border="0" alt="Sign in with Twitter" title="Sign in with Twitter" style="margin-top:5px;" /></a></p></div>';
 
-    $content .= '<div class="altloginbox"><p>Alternate sign in<br/>(for existing users only)<br/>
+    $content .= '<div class="altloginbox"><p>Alternate sign in<br/>
         <form name="loginform" method="post" action="logincallback.php">
         <p>Username: <input name="username" type="text" id="username" style="width:100px"><br/>
         Password: <input name="password" type="password" id="password" style="width:100px"><br/>
