@@ -36,7 +36,7 @@ if (!isset($_SESSION['uid'])) {
 }
 
 // Top users box
-$content .= '<div class="topusersbox"><p>This week\'s top users</p>';
+$content .= '<div class="topusersbox"><p>This week\'s top users</p><p class="topuserssince">since ' . date("l jS F", strtotime("last sunday +1 day")) . '</p>';
 $query = "SELECT * FROM users WHERE visible='1' AND activepromises>'0' ORDER BY percentthisweek DESC LIMIT 5";
 $userResult = mysql_query($query);
 while ($user = mysql_fetch_assoc($userResult)) {

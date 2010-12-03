@@ -110,6 +110,7 @@ function makeHistoryTable($uid) {
     }
     $content .= "</tr>";
     
+    
     // Make the date headers
     $content .= "<tr><td></td>";
     $dates = createDatesArray("D<b\\r>jS");
@@ -117,12 +118,14 @@ function makeHistoryTable($uid) {
     foreach ($dates as $date) {
         // Highlight today's date
         if ($date == $today) {
-            $content .= "<td class=\"date\"><strong>" . $date . "</strong></td>";
+            $content .= "<td class=\"date " . $class . "\"><strong>" . $date . "</strong></td>";
         } else {
-            $content .= "<td class=\"date\">" . $date . "</td>";
+            $content .= "<td class=\"date " . $class . "\">" . $date . "</td>";
         }
     }
     $content .= "</tr>";
+    
+    
     $dates = createDatesArray("Y-m-d");
     while ($promise = mysql_fetch_assoc($promiseResult)) {
         $content .= "<tr><td class=\"promise\">" . $promise['promise'] . "</td>";
@@ -150,11 +153,21 @@ function makeHistoryTable($uid) {
     if ($_SESSION['uid'] == $uid) {
         $content .= "<tr><td class=\"promise\"><a href=\"/manage\" target=\"_top\">add a";
         if (mysql_num_rows($promiseResult) > 0) { $content .= "nother"; }
-        $content .= " promise?</a></td></tr>";
+        $content .= " promise?</a></td>";
     } else if (mysql_num_rows($promiseResult) == 0) {
         // Other user's blank table
-        $content .= "<tr><td class=\"promise\">no promises set yet!</td></tr>";
+        $content .= "<tr><td class=\"promise\">no promises set yet!</td>";
+    } else {
+        $content .= "<tr><td></td>";
     }
+    
+    
+    // Make the "this week" footer
+    $content .= "<td colspan=21></td>";
+    $content .= "<td class=\"date thisweek\" colspan=7>This week</td>";
+    $content .= "</tr>";
+    
+    
     
     $content .= "</table></div>";
     
