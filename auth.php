@@ -7,12 +7,12 @@ require_once('config.php');
 // If we don't already have a session, try and get one from cookie or Twitter.
 // If we do, this script does nothing.
 function auth() {
-	if (!isset($_SESSION['uid'])) {
+	if ((!isset($_SESSION['uid'])) || (!isset($_SESSION['access_token']))) {
 	    // Bring in access token from cookie if it exists.
 	    if (!empty($_COOKIE['access_token'])) {
 	    	$_SESSION['access_token'] = unserialize($_COOKIE['access_token']);
 	    }
-
+	
 	    /* If access tokens are not available redirect to connect page. */
 	    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
 	        header('Location: ./clearsessions.php');

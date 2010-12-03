@@ -9,6 +9,9 @@ require_once('common.php');
 // Titlebar text
 $titleText = " - Friends";
 
+// Auth required for this page
+auth();
+
 // DB connection
 mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 @mysql_select_db(DB_NAME) or die( "Unable to select database");

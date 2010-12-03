@@ -17,21 +17,20 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
         // Username check
         if (mysql_num_rows($result) > 0) {
             // Password check
-            $storedPassword = mysql_result($result, 0, "password");
+			$user = mysql_fetch_assoc($result);
+            $storedPassword = $user['password'];
             if (strcmp($storedPassword, md5($_POST['password'])) == 0) {
                 
                 // Password match, so get access token
-                $access_token = unserialize(mysql_result($result, 0, "auth_token"));
-
-                /* Save the access tokens. Normally these would be saved in a database for future use. */
-                $_SESSION['access_token'] = $access_token;
+                $access_token = unserialize($user['auth_token']);
+				$_SESSION['access_token'] = $access_token;
 
                 // Save accesstoken cookie
                 setcookie('access_token', serialize($access_token), mktime()+86400*365);
 
-                $_SESSION['thisUser'] = mysql_result($result, 0, "username");
-                $_SESSION['uid'] = mysql_result($result, 0, "uid");
+                $_SESSION['thisUser'] = $user['username'];
                 $_SESSION['status'] = 'verified';
+				// uid is not set here, this forces execution of auth() on next page load.
                 
                 header('Location: /view');
                 die();
