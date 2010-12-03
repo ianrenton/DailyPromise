@@ -32,4 +32,41 @@ function makeLinksForm() {
 	return $content;
 }
 
+
+
+// Update's a user's cached stats (for the top users table, etc.)
+function updateCachedStats($uid) {
+    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "'";
+    $recordResult = mysql_query($query);
+    
+    $total = 0;
+    $kept = 0;
+    while ($record = mysql_fetch_assoc($recordResult)) {
+        if ($record['kept'] == "YES") {
+            $kept++;
+            $total++;
+        }
+        if ($record['kept'] == "NO") {
+            $total++;
+        }
+    }
+    $recordsThisWeek = $total;
+    
+    if ($total > 0) {
+        $percentThisWeek = round($kept/$total*100);
+    } else {
+        $percentThisWeek = 0;
+    }
+    
+    $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "' AND active='1'";
+    $promiseResult = mysql_query($query);
+    $activePromises = mysql_num_rows($promiseResult);
+    
+    $query = "UPDATE users SET activepromises='" . mysql_real_escape_string($activePromises) . "' WHERE uid='" . mysql_real_escape_string($uid) . "'";
+    mysql_query($query);
+    
+    $query = "UPDATE users SET percentthisweek='" . mysql_real_escape_string($percentThisWeek) . "' WHERE uid='" . mysql_real_escape_string($uid) . "'";
+    mysql_query($query);
+}
+
 mysql_close();

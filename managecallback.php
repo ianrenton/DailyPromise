@@ -23,6 +23,8 @@ if (isset($_GET['activate'])) {
     if (mysql_num_rows($recordResult) == 0) {
         $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($_GET['activate']) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "', 'WAITING')";
         mysql_query($query);
+        // Something has changed, update the cached stats
+        updateCachedStats($_SESSION['uid']);
     }
 	mysql_close();
 	header('Location: /manage/done/' . $_GET['activate']);
@@ -36,6 +38,8 @@ if (isset($_GET['deactivate'])) {
     // Remove all "WAITING" fields
     $query = "DELETE FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($_GET['deactivate']) . "' AND kept='WAITING'";
     mysql_query($query);
+    // Something has changed, update the cached stats
+    updateCachedStats($_SESSION['uid']);
 	mysql_close();
 	header('Location: /manage/done');
 	die();
@@ -59,6 +63,8 @@ if (isset($_POST['newpromise'])) {
         $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("yesterday"))) . "', 'WAITING')";
         mysql_query($query);
     }
+    // Something has changed, update the cached stats
+    updateCachedStats($_SESSION['uid']);
 	mysql_close();
 	header('Location: /manage/done/' . $newPID);
 	die();

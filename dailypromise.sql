@@ -71,6 +71,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(200) DEFAULT NULL,
   `auth_token` varchar(200) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
+  `activepromises` INT NOT NULL DEFAULT '0',
+  `percentthisweek` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 

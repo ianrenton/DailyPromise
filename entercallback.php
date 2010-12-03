@@ -35,6 +35,8 @@ while ($promise = mysql_fetch_assoc($promiseResult)) {
             $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($promise['pid']) . "', '" . mysql_real_escape_string($_POST['date']) . "', '" . $kept . "')";
             mysql_query($query);
         }
+        // Something has changed, update the cached stats
+        updateCachedStats($_SESSION['uid']);
     }
 }
 

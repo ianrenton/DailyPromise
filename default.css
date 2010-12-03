@@ -108,12 +108,56 @@ div.twitterloginbox a {
     border: 0;    
 }
 
-div.altloginbox {
+div.topusersbox {
     width:100%;
     margin: 0 0 20px 0;
     background: #eeffee;
     padding: 0 10px 0 10px;
     border: 3px solid #cceecc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px; 
+    text-align: center;    
+}
+
+div.topusersbox p {
+    font-weight: bold;
+}
+
+div.topuser {
+    width:100%;
+    text-align: left;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    /*border-bottom: 1px solid #cceecc;*/
+}
+
+div.topuserpercentage {
+    font-size: 2em;
+    float:right;
+}
+
+div.topusername {
+    font-weight: bold;
+}
+
+div.topusername a {
+    color: black;
+    text-decoration: none;
+}
+
+div.topuserpromises {
+    font-size: 0.8em;
+    color:#888888;
+}
+
+div.altloginbox {
+    width:100%;
+    margin: 0 0 20px 0;
+    background: #eeeeee;
+    padding: 0 10px 0 10px;
+    border: 3px solid #dddddd;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
