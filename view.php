@@ -75,7 +75,7 @@ function addTodaysWaitingRecords() {
 
 function makeHistoryTable($uid) {
 
-    $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "'";
+    $query = "SELECT * FROM promises WHERE uid='" . mysql_real_escape_string($uid) . "' AND active='1'";
     $promiseResult = mysql_query($query);
     
     $content .= "<div class=\"historytable\"><table class=\"historytable\"><tr><td></td>";

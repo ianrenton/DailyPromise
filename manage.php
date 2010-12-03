@@ -81,7 +81,7 @@ function makeCurrentPromises() {
         } else {
             $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)";
         }
-        $content .= "<a href=\"/deactivate/" . $promise['pid'] . "\" class=\"remove\">Remove</a></span>";
+        $content .= "<a href=\"/manage/deactivate/" . $promise['pid'] . "\" class=\"remove\">Remove</a></span>";
         $content .= "" . $promise['promise'] . "</li>";
     }
     
@@ -141,8 +141,12 @@ function makeOldPromises() {
         $earliestDate = $row['MIN(date)'];
         $latestDate = $row['MAX(date)'];
         
-        $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate from " . date("j M Y", strtotime($earliestDate)) . " to " . date("j M Y", strtotime($latestDate)) . ".)";
-        $content .= "<a href=\"/activate/" . $promise['pid'] . "\" class=\"add\">Add</a></span>";
+        if ($pass+$fail <= 0) {
+            $content .= "<span class=\"floatright\">(No data for this promise yet.)";
+        } else {
+            $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate from " . date("j M Y", strtotime($earliestDate)) . " to " . date("j M Y", strtotime($latestDate)) . ".)";
+        }
+        $content .= "<a href=\"/manage/activate/" . $promise['pid'] . "\" class=\"add\">Restore</a><a href=\"/manage/delete/" . $promise['pid'] . "\" class=\"remove\">Delete</a></span>";
         $content .= "" . $promise['promise'] . "</li>";
     }
     

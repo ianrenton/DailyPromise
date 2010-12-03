@@ -64,6 +64,18 @@ if (isset($_POST['newpromise'])) {
 	die();
 }
 
+// Promise deletion
+if (isset($_GET['delete'])) {
+    $query = "DELETE FROM promises WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($_GET['delete']) . "'";
+    mysql_query($query);
+    // Remove all records
+    $query = "DELETE FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($_GET['delete']) . "'";
+    mysql_query($query);
+	mysql_close();
+	header('Location: /manage/done');
+	die();
+}
+
 mysql_close();
 header('Location: /manage');
 die();
