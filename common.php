@@ -4,7 +4,6 @@ date_default_timezone_set('UTC');
 
 /* Load required lib files. */
 session_start();
-require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
 mysql_connect(DB_SERVER,DB_USER,DB_PASS);

@@ -2,7 +2,6 @@
 
 session_start();
 require_once('auth.php');
-require_once('twitteroauth/twitteroauth.php');
 require_once('common.php');
 require_once('config.php');
 
