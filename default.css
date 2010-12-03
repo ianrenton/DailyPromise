@@ -391,6 +391,34 @@ p.error {
     font-weight: bold;
 }
 
+div.good {
+    width: 60%;
+    margin:10px auto 0 auto;
+    padding:0 10px 0 10px;
+    border: 2px solid #66bb66;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #66bb66;
+}
+
+div.error {
+    width: 60%;
+    margin:10px auto 0 auto;
+    padding:0 10px 0 10px;
+    border: 2px solid #bb6666;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #bb6666;
+}
+
+div.error a {
+    color: #993333;
+}
+
 div.tweetbox {
 	width: 600px;
     margin:0 auto 0 auto;

@@ -12,7 +12,7 @@ mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 
 // Get user id for display, either from a username lookup (/user/blah) or from session (/view).
 if (isset($_GET['username'])) {
-    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_GET['username']) . "'";
+    $query = "SELECT * FROM users WHERE username='" . mysql_real_escape_string($_GET['username']) . "' AND visible='1'"; // Only visible users!
     $userResult = mysql_query($query);
     $row = mysql_fetch_assoc($userResult);
     $uid = $row['uid'];
@@ -26,14 +26,20 @@ if (isset($_GET['username'])) {
 }
 
 // Build the main display
-if ($uid != $_SESSION['uid']) {
-    $content .= makeUserBio();
+if ($uid != "") {
+    if ($uid != $_SESSION['uid']) {
+        $content .= makeUserBio();
+    }
+    $content .= makeHistoryTable($uid);
+    if ($uid == $_SESSION['uid']) {
+        $content .= makeEnterLink();
+    }
+    $content .= makeSummary($uid);
+} else {
+    $content = "<div class=\"centeredlistheader\">@" . $_GET['username'] . " is not registered on Daily Promise.</div>";
+    $content .= "<div class=\"backtoview\"><a href=\"/\">Go back to the home page</a></div>";
 }
-$content .= makeHistoryTable($uid);
-if ($uid == $_SESSION['uid']) {
-    $content .= makeEnterLink();
-}
-$content .= makeSummary($uid);
+
 include('html.inc');
 
 mysql_close();
@@ -42,7 +48,7 @@ mysql_close();
 
 function makeUserBio() {
 
-    $content .= "<div class=\"centeredlistheader\">" . $_GET['username'] . "</div>";
+    $content .= "<div class=\"centeredlistheader\">@" . $_GET['username'] . "</div>";
     
     return $content;
 }

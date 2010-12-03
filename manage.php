@@ -20,6 +20,15 @@ if (isset($_GET['date'])) {
     }
 }
 
+// First-timer info
+if (isset($_GET['response'])) {
+    if ($_GET['response'] == "firsttime") {
+        $content .= makeFirstTimeInfo();
+    } else if ($_GET['response'] == "nowinvisible") {
+        $content .= '<div class="good"><p><strong>Your profile is now invisible.  Your records, promises and the very existence of your account will be hidden from other users and the public.</strong></p></div>';
+    }
+}
+
 // Build the main display
 $content .= makeCurrentPromises();
 
@@ -41,6 +50,19 @@ include('html.inc');
 mysql_close();
 
 
+
+
+function makeFirstTimeInfo() {
+    $content .= '<div class="good"><h4>Thanks for joining Daily Promise!</h4>
+    <p>This is the "manage" page, where you set your promises.  Go ahead and add some now!  If you\'d like to get filling in your records now, don\'t forget the checkbox in the "Add another" area, which will let you fill in your results from yesterday too.  It\'s selected by default.</p>
+    <p>Once you\'re happy with your promises, use the links in the top-right to get around the site.  "enter" is where you fill in your records every day, and "view" shows you how you\'re getting on.  "friends" shows you how well people you follow on Twitter are doing - invite your friends, and compete to keep the most promises!</p>
+    </div>
+    <div class="error"><p>Your profile is visible to others, because we think it\'s easier to keep your promises if everybody knows about them!</p>
+    <p>If you\'d prefer to keep your promises private, you <a href="/configure/makeinvisible">click here to make your profile invisible</a>.  No-one but you will know that you are a Daily Promise user.  (You can change this later on the "configuration" page.)</p>
+    </div>';
+    
+    return $content;
+}
 
 
 
@@ -95,12 +117,11 @@ function makeCurrentPromises() {
 function makeNewPromises() {
     
     $content .= "<div class=\"centeredlistheader\">Add another:</div>";
-    $content .= "<p class=\"publicwarning\">Just so you know, other users can see what promises you have set. Please don't enter anything really personal.</p>";
     
     $content .= "<form class=\"centeredform\" method=\"post\" action=\"/managecallback.php\">";
     $content .= "<input type=\"text\" name=\"newpromise\" class=\"newpromisefield\"/>";
     $content .= "<input type=\"submit\" name=\"Submit\" value=\"Add\"><br/>";
-    $content .= "<input type=\"checkbox\" name=\"doyesterday\" id=\"doyesterday\" checked/><label for=\"doyesterday\">I want to get started right away - let me add yesterday's data!</label>";
+    $content .= "<input type=\"checkbox\" name=\"doyesterday\" id=\"doyesterday\" checked/><label for=\"doyesterday\">I want to get started right away - let me add yesterday's data too!</label>";
     $content .= "</form>";
     
     return $content;

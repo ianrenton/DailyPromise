@@ -54,7 +54,7 @@ function auth() {
 	    $result = mysql_query($query);
 	    if (!mysql_num_rows($result) ) {
 	        // If user is a first-time visitor, add a row for them.
-	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','')";
+	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1')";
 	        mysql_query($query);
 	        $firstTime = true;
 	    } else {
@@ -75,7 +75,7 @@ function auth() {
 	    // Point first-timers at the Manage page to set some promises.  Point returning
 	    // users at their View.
 	    if ($firstTime == true) {
-	        header('Location: /manage' );
+	        header('Location: /manage/firsttime' );
 	    	die();
 	    } else {
 	        header('Location: /view' );

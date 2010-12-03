@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(200) DEFAULT NULL,
   `auth_token` varchar(200) DEFAULT NULL,
+  `visible` tinyint(1) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
