@@ -20,3 +20,6 @@ RewriteRule ^configure\/makeinvisible$ visibilitycallback.php?makeinvisible=true
 RewriteRule ^configure\/([\w]+)$ configure.php?response=$1 [L]
 RewriteRule ^friends$ friends.php [L]
 RewriteRule ^logout$ clearsessions.php [L]
+RewriteRule ^about$ about.php [L]
+RewriteRule ^contact$ contact.php [L]
+RewriteRule ^privacy$ privacy.php [L]

@@ -439,6 +439,15 @@ ul.friendslist li.friend div.friendpromises {
     color:#888888;
 }
 
+div.about {
+    width: 60%;
+    margin:0px auto 0px auto;
+}
+
+div.about p a {
+    color: #66bb66;
+}
+
 form.centeredform {
     width: 60%;
     margin:20px auto 20px auto;
@@ -566,4 +575,8 @@ div.tweetbox {
     margin: 80px auto 20px auto;
     font-size:0.8em;
     color:#888888;
+}
+
+#footer p a{
+    color: #66bb66;
 }

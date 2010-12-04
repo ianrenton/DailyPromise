@@ -17,6 +17,6 @@
     
 	<div id="<?php echo($contentPage); ?>content"><?php echo($content); ?></div>
 	
-    <div id="footer">Daily Promise is a website by Ian Renton.</div>
+    <div id="footer">Daily Promise is a website by <a href="http://www.onlydreaming.net/about-me">Ian Renton</a>.  <a href="/about">About / FAQ</a> | <a href="/privacy">Privacy</a> | <a href="/contact">Contact</a></div>
 
 </body></html>
