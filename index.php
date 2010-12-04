@@ -34,7 +34,7 @@ $content .= '<div class="homepageright">';
 
 // Show Login box if not logged in
 if (!isset($_SESSION['uid'])) {
-    $content .= '<div class="twitterloginbox"><p><a href="/twittersignin"><strong>To sign in or register, click here:</strong><br/><img src="./images/lighter.png" border="0" alt="Sign in with Twitter" title="Sign in with Twitter" style="margin-top:5px;" /></a></p></div>';
+    $content .= '<div class="twitterloginbox"><p><a href="/twittersignin"><strong>To sign in or register, click here:</strong><br/><img src="/images/lighter.png" border="0" alt="Sign in with Twitter" title="Sign in with Twitter" style="margin-top:5px;" /></a></p></div>';
 }
 
 // Top users box

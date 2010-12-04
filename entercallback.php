@@ -22,7 +22,7 @@ while ($promise = mysql_fetch_assoc($promiseResult)) {
     // If non-blank, i.e. the user did actually check "Yes" or "No"...
     if ($_POST[$promise['pid']] != "") {
         // Get the value returned
-        $kept = ($_POST[$promise['pid']] == "true")?"YES":"NO";
+        $kept = $_POST[$promise['pid']];
         // Check for existing entries for that day
         $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "' AND pid='" . mysql_real_escape_string($promise['pid']) . "' AND date='" . mysql_real_escape_string($_POST['date']) . "'";
         $recordResult = mysql_query($query);

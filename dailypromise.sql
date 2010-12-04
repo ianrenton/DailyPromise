@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `date` date NOT NULL,
-  `kept` enum('YES','NO','WAITING') NOT NULL,
+  `kept` enum('YES','NO','NA','WAITING') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

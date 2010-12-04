@@ -133,11 +133,13 @@ function makeHistoryTable($uid) {
                     $color = "#88ff88";
                 } else if ($row['kept'] == "NO") {
                     $color = "#ff8888";
+                } else if ($row['kept'] == "NA") {
+                    $color = "#dddddd";
                 } else /* WAITING */ {
                     $color = "#bbbbbb";
                 }
             } else {
-                $color = "#dddddd";
+                $color = "#eeeeee";
             }
             $content .= "<td style=\"background:" . $color . "\">" . $kept . "</td>";
         }
