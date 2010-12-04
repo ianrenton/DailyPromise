@@ -326,7 +326,7 @@ div.usernameheader {
 div.usernameheader div.avatar {
     float:left;
 	margin-right: 20px;
-	padding: 5px 0 20px 0;
+	padding: 5px 0 10px 0;
 }
 
 div.usernameheader div.username {
@@ -577,6 +577,6 @@ div.tweetbox {
     color:#888888;
 }
 
-#footer p a{
+#footer a {
     color: #66bb66;
 }
