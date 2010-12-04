@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once('twitteroauth/twitteroauth.php');
 require_once('auth.php');
 require_once('common.php');
 require_once('config.php');
@@ -15,6 +16,7 @@ if (isset($_GET['username'])) {
     $userResult = mysql_query($query);
     $row = mysql_fetch_assoc($userResult);
     $uid = $row['uid'];
+    $twitter_uid = $row['twitter_uid'];
     $titleText = " - @" . $_GET['username'] . "'s Profile";
 } else {
 	// Require authentication for this page if running from session id
@@ -29,7 +31,7 @@ if (isset($_GET['username'])) {
 // Build the main display
 if ($uid != "") {
     if ($uid != $_SESSION['uid']) {
-        $content .= makeUserBio();
+        $content .= makeUserBio($uid, $twitter_uid);
     }
     $content .= makeHistoryTable($uid);
     if ($uid == $_SESSION['uid']) {
@@ -47,9 +49,27 @@ mysql_close();
 
 
 
-function makeUserBio() {
+function makeUserBio($uid, $twitter_uid) {
+	// Get a Twitter object
+	$to = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
 
-    $content .= "<div class=\"centeredlistheader\">@" . $_GET['username'] . "</div>";
+	// Get avatar etc
+	$lookupResult = $to->get('users/show', array('user_id' => $twitter_uid));
+	$avatarURL = $lookupResult['profile_image_url'];
+	$bio = $lookupResult['description'];
+	
+	// Get User since
+	$query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' ORDER BY date ASC";
+    $recordResult = mysql_query($query);
+	$row = mysql_fetch_assoc($recordResult);
+	$userSince = date("jS F Y", strtotime($row['date']));
+	if ($userSince == "1st January 1970") {
+		$userSince = "Daily Promise lurker";
+	} else {
+		$userSince = "Daily Promise user since " . $userSince;
+	}
+	
+    $content .= "<div class=\"usernameheader\"><div class=\"avatar\"><img src=\"" . $avatarURL . "\" /></div><div class=\"username\">@" . $_GET['username'] . "</div><div class=\"bio\">" . $bio . "</div><div class=\"bio\">" . $userSince . "</div></div>";
     
     return $content;
 }

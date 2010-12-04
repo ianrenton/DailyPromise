@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 require_once('common.php');
 
@@ -36,11 +37,15 @@ if (!isset($_SESSION['uid'])) {
 }
 
 // Top users box
+$to = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+
 $content .= '<div class="topusersbox"><p>This week\'s top users</p><p class="topuserssince">since ' . date("l jS F", strtotime("last sunday +1 day")) . '</p>';
 $query = "SELECT * FROM users WHERE visible='1' AND activepromises>'0' ORDER BY percentthisweek DESC LIMIT 5";
 $userResult = mysql_query($query);
 while ($user = mysql_fetch_assoc($userResult)) {
-    $content .= '<div class="topuser"><div class="topuserpercentage">' . $user['percentthisweek'] . '%</div><div class="topusername"><a href="/user/' . $user['username'] . '">@' . $user['username'] . '</a></div><div class="topuserpromises">' . $user['activepromises'] . ' active promise' . (($user['activepromises'] != 1)?"s":"") . '</div></div>';
+	$lookupResult = $to->get('users/show', array('user_id' => $user['twitter_uid']));
+	$avatarURL = $lookupResult['profile_image_url'];
+    $content .= '<div class="topuser"><div class="topuserpercentage">' . $user['percentthisweek'] . '%</div><div class="avatar"><a href="/user/' . $user['username'] . '"><img src="' . $avatarURL . '" /></a></div><div class="topusername"><a href="/user/' . $user['username'] . '">@' . $user['username'] . '</a></div><div class="topuserpromises">' . $user['activepromises'] . ' active promise' . (($user['activepromises'] != 1)?"s":"") . '</div></div>';
 }
 $content .= '</div>';
 

@@ -140,10 +140,17 @@ div.topusersbox p.topuserssince {
 
 div.topuser {
     width:100%;
+	clear:both;
     text-align: left;
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     /*border-bottom: 1px solid #cceecc;*/
+}
+
+div.topuser div.avatar {
+    float:left;
+	margin-right: 10px;
+	padding: 0px 0 0px 0;
 }
 
 div.topuserpercentage {
@@ -153,6 +160,7 @@ div.topuserpercentage {
 
 div.topusername {
     font-weight: bold;
+	padding-top:4px;
 }
 
 div.topusername a {
@@ -311,6 +319,24 @@ div.centeredlistheader {
     font-size:2em;
 }
 
+div.usernameheader {
+    margin:40px 20px 20px 20px;
+}
+
+div.usernameheader div.avatar {
+    float:left;
+	margin-right: 20px;
+	padding: 5px 0 20px 0;
+}
+
+div.usernameheader div.username {
+    font-size:2em;
+}
+
+div.usernameheader div.bio {
+	color:#888888;
+}
+
 p.publicwarning {
     margin-left:60px;
 }
@@ -388,6 +414,12 @@ ul.friendslist {
 
 ul.friendslist li.friend {
     margin: 10px 0 10px 0;
+}
+
+ul.friendslist li.friend div.avatar {
+    float:left;
+	margin-right: 20px;
+	padding: 5px 0 20px 0;
 }
 
 ul.friendslist li.friend div.friendpercentage {
