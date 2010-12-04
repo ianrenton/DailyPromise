@@ -43,6 +43,10 @@ function auth() {
 	    	// If we couldn't authenticate, log out and try again.
 	    	header('Location: /logout' );
 	    	die();
+	    } else if ($auth["id"] == 0) {
+	    	// Catches everything else, I believe
+	    	header('Location: /logout' );
+	    	die();
 	    }
 
 	    // DB connection
