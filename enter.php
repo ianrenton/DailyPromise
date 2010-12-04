@@ -66,8 +66,11 @@ function makeTodaysEntry($date) {
     
     // Friendly date header
     $today = date("Y-m-d", strtotime("today"));
+    $yesterday = date("Y-m-d", strtotime("yesterday"));
     if ($date == $today) {
         $content = "<div class=\"centeredlistheader\">Today, " . date("l jS F", strtotime($date)) . ", I...</div>";
+    } else if ($date == $yesterday) {
+        $content = "<div class=\"centeredlistheader\">Yesterday, " . date("l jS F", strtotime($date)) . ", I...</div>";
     } else {
         $content = "<div class=\"centeredlistheader\">On " . date("l jS F", strtotime($date)) . ", I...</div>";
     }
@@ -132,11 +135,12 @@ function makeTweetBoxes($date) {
         if ($record['kept'] == "WAITING") $waiting++;
     }
 	$today = date("Y-m-d", strtotime("today"));
+	$yesterday = date("Y-m-d", strtotime("yesterday"));
     
 
 	// Offer tweet box if we're done and it's today, otherwise just a plain summary.
-	if (($waiting == 0) && ($date == $today)) {
-		$tweet = "Today I kept " . $kept . " of my " . ($kept+$unkept+$waiting) . " promise";
+	if (($waiting == 0) && (($date == $today) || ($date == $yesterday))) {
+		$tweet = (($date == $today)?"Today":"Yesterday") . " I kept " . $kept . " of my " . ($kept+$unkept+$waiting) . " promise";
     	$tweet .= (($kept+$unkept+$waiting)==1)?".":"s.";
 		$query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
         $userResult = mysql_query($query);
@@ -148,7 +152,7 @@ function makeTweetBoxes($date) {
 						    T("#tweetbox").tweetBox({
 						      height: 50,
 						      width: 600,
-							  label: "Today\'s record is complete. Tweet about it?",
+							  label: "' . (($date == $today)?"Today":"Yesterday") . '\'s record is complete. Tweet about it?",
 						      defaultContent: "' . $tweet . '"
 						    });
 						  });
