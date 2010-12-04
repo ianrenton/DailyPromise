@@ -54,7 +54,7 @@ function auth() {
 	    $result = mysql_query($query);
 	    if (!mysql_num_rows($result) ) {
 	        // If user is a first-time visitor, add a row for them.
-	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1')";
+	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1', '0', '0')";
 	        mysql_query($query);
 	        $firstTime = true;
 	    } else {
