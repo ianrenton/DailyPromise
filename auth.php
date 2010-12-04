@@ -7,6 +7,7 @@ require_once('config.php');
 // If we don't already have a session, try and get one from cookie or Twitter.
 // If we do, this script does nothing.
 function auth() {
+	
 	if ((!isset($_SESSION['uid'])) || (!isset($_SESSION['access_token']))) {
 	    // Bring in access token from cookie if it exists.
 	    if (!empty($_COOKIE['access_token'])) {
@@ -33,6 +34,7 @@ function auth() {
 	    $_SESSION['thisUser'] = $auth['screen_name'];
 	    $_SESSION['twitter_uid'] = $auth['id'];
 	    $_SESSION['utcOffset'] = $auth['utc_offset'];
+		$profilePicURL = $auth['profile_image_url'];
 
 	    // Auth error handling
 	    if ($auth["error"] == '<') {
@@ -41,10 +43,14 @@ function auth() {
 	    	die();
 	    } else if ($auth["error"] == 'Could not authenticate you.') {
 	    	// If we couldn't authenticate, log out and try again.
-	    	header('Location: /logout' );
+	    	header('Location: /home/twitterauthfailed' );
+	    	die();
+	    } else if (strpos($auth["error"], 'Rate limit exceeded.') !== FALSE) {
+	    	// Oops!
+	    	header('Location: /home/ratelimit' );
 	    	die();
 	    } else if ($auth["id"] == 0) {
-	    	// Catches everything else, I believe
+	    	// Last-ditch attempt to catch things to stop creation of invalid accounts
 	    	header('Location: /logout' );
 	    	die();
 	    }
@@ -58,14 +64,16 @@ function auth() {
 	    $result = mysql_query($query);
 	    if (!mysql_num_rows($result) ) {
 	        // If user is a first-time visitor, add a row for them.
-	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','1', '0', '0')";
+	        $query = "INSERT INTO users VALUES ('', '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "', '" . mysql_real_escape_string($_SESSION['thisUser']) . "','','','" . mysql_real_escape_string($profilePicURL) . "','1', '0', '0')";
 	        mysql_query($query);
 	        $firstTime = true;
 	    } else {
-	        // If user is in the users table, update their access token (and username, just in case it changed)
+	        // If user is in the users table, update their access token (and username & profilepic, just in case it changed)
 	        $query = "UPDATE users SET auth_token = '" . mysql_real_escape_string(serialize($access_token)) . "' WHERE twitter_uid = '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
 	        mysql_query($query);
 	        $query = "UPDATE users SET username = '" . mysql_real_escape_string($_SESSION['thisUser']) . "' WHERE twitter_uid = '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
+	        mysql_query($query);
+	        $query = "UPDATE users SET profilepic = '" . mysql_real_escape_string($profilePicURL) . "' WHERE twitter_uid = '" . mysql_real_escape_string($_SESSION['twitter_uid']) . "'";
 	        mysql_query($query);
 	        $firstTime = false;
 	    }

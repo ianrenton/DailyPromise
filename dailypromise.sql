@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `promises` (
   `promise` varchar(500) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `promises`
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   `date` date NOT NULL,
   `kept` enum('YES','NO','WAITING') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `records`
@@ -70,11 +70,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(200) DEFAULT NULL,
   `auth_token` varchar(200) DEFAULT NULL,
+  `profilepic` varchar(256) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
   `activepromises` INT NOT NULL DEFAULT '0',
   `percentthisweek` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `users`

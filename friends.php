@@ -35,11 +35,8 @@ $result = mysql_query($query);
 $content .= "<div class=\"centeredlistheader\">How are my friends doing?</div><ul class=\"friendslist\">";
 
 while ($friend = mysql_fetch_assoc($result)) {
-	// Get avatar
-	$lookupResult = $to->get('users/show', array('user_id' => $friend['twitter_uid']));
-	$avatarURL = $lookupResult['profile_image_url'];
 	// Print user info for each match
-	$content .= '<li class="friend"><div class="avatar"><a href="/user/' . $friend['username'] . '"><img src="' . $avatarURL . '" /></a></div><div class="friendname"><a href="/user/' . $friend['username'] . '">@' . $friend['username'] . '</a></div><div class="friendpercentage">' . $friend['percentthisweek'] . '% of goals met this week</div><div class="friendpromises">' . $friend['activepromises'] . ' active promise' . (($friend['activepromises'] != 1)?"s":"") . '</div></li>';
+	$content .= '<li class="friend"><div class="avatar"><a href="/user/' . $friend['username'] . '"><img src="' . $friend['profilepic'] . '" /></a></div><div class="friendname"><a href="/user/' . $friend['username'] . '">@' . $friend['username'] . '</a></div><div class="friendpercentage">' . $friend['percentthisweek'] . '% of goals met this week</div><div class="friendpromises">' . $friend['activepromises'] . ' active promise' . (($friend['activepromises'] != 1)?"s":"") . '</div></li>';
 }
 $content .= "</ul>";
 
