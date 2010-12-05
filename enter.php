@@ -145,12 +145,29 @@ function makeTweetBoxes($date) {
     }
 	$today = date("Y-m-d", strtotime("today"));
 	$yesterday = date("Y-m-d", strtotime("yesterday"));
+	
+	// Totals this week
+	$query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
+    $userResult = mysql_query($query);
+    $row = mysql_fetch_assoc($userResult);
+	$percentage = $row['percentthisweek'];
+	$numPromises = $row['activepromises'];
     
 
-	// Offer tweet box if we're done and it's today, otherwise just a plain summary.
+	// Offer tweet box if we're done and it's today or yesterday, otherwise just a plain summary.
 	if (($waiting == 0) && (($date == $today) || ($date == $yesterday))) {
-		$tweet = (($date == $today)?"Today":"Yesterday") . " I kept " . $kept . " of my " . ($kept+$unkept+$waiting) . " promise";
-    	$tweet .= (($kept+$unkept+$waiting)==1)?".":"s.";
+		
+		if ($date == date("Y-m-d", strtotime("sunday"))) {
+			// End of week
+			$tweet = "This week I made " . $numPromises . " promise" . (($numPromises==1)?"":"s") . ", and kept them " . $percentage . "% of the time!";
+			$typeComplete = "This week";
+		} else {
+			// Normal day
+			$tweet = (($date == $today)?"Today":"Yesterday") . " I kept " . $kept . " of my " . ($kept+$unkept+$waiting) . " promise";
+    		$tweet .= (($kept+$unkept+$waiting)==1)?".":"s.";
+			$typeComplete = (($date == $today)?"Today":"Yesterday");
+		}
+		
 		$query = "SELECT * FROM users WHERE uid='" . mysql_real_escape_string($_SESSION['uid']) . "'";
         $userResult = mysql_query($query);
         $row = mysql_fetch_assoc($userResult);
@@ -161,7 +178,7 @@ function makeTweetBoxes($date) {
 						    T("#tweetbox").tweetBox({
 						      height: 50,
 						      width: 600,
-							  label: "' . (($date == $today)?"Today":"Yesterday") . '\'s record is complete. Tweet about it?",
+							  label: "' . $typeComplete . '\'s record is complete. Tweet about it?",
 						      defaultContent: "' . $tweet . '"
 						    });
 						  });
@@ -180,6 +197,7 @@ function makeTweetBoxes($date) {
 	    }
 	    $content .= "</div>";
 	}
+	
     return $content;
 }
 
