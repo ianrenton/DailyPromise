@@ -337,6 +337,10 @@ div.usernameheader div.bio {
 	color:#888888;
 }
 
+div.usernameheader div.followbox {
+	float:right;
+}
+
 p.publicwarning {
     margin-left:60px;
 }

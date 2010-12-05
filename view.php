@@ -69,7 +69,14 @@ function makeUserBio($uid, $twitter_uid) {
 		$userSince = "Daily Promise user since " . $userSince;
 	}
 	
-    $content .= "<div class=\"usernameheader\"><div class=\"avatar\"><img src=\"" . $avatarURL . "\" /></div><div class=\"username\">@" . $_GET['username'] . "</div><div class=\"bio\">" . $bio . "</div><div class=\"bio\">" . $userSince . "</div></div>";
+	$followboxHTML = "<div class=\"followbox\"><span id=\"follow-twitterapi\"></span></div>
+						<script type=\"text/javascript\">
+						  twttr.anywhere(function (T) {
+						    T('#follow-twitterapi').followButton(\"" . $_GET['username'] . "\");
+						  });
+						</script>";
+						
+    $content .= "<div class=\"usernameheader\">" . $followboxHTML . "<div class=\"avatar\"><img src=\"" . $avatarURL . "\" /></div><div class=\"username\">@" . $_GET['username'] . "</div><div class=\"bio\">" . $bio . "</div><div class=\"bio\">" . $userSince . "</div></div>";
     
     return $content;
 }
