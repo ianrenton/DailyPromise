@@ -17,7 +17,7 @@ if (isset($_GET['response'])) {
     } else if ($_GET['response'] == "loginfailed") {
         $content .= '<p class="error">Alternative login failed.</p>';
     } else if ($_GET['response'] == "twitterauthfailed") {
-        $content .= '<p class="error">Twitter failed to authenticate you.</p>';
+        $content .= '<p class="error">Twitter failed to authenticate you.  This is usually a temporary problem, please try again.</p>';
     } else if ($_GET['response'] == "ratelimit") {
         $content .= '<p class="error">Twitter rate limit exceeded.  Oops!  (This has been reported to the developers. It\'s our fault, not yours!)</p>';
     }
