@@ -16,4 +16,8 @@ define("DB_SERVER", "localhost");
 define("DB_NAME", "dailypromise");
 define("DB_USER", "root");
 define("DB_PASS", "");
+
+// Twitter access token for the twitter bot
+define('BOT_ACCESS_TOKEN', '');
+
 ?>
