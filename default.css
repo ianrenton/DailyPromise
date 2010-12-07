@@ -4,6 +4,10 @@ html, body {
     font-family: sans-serif;
 }
 
+img {
+    border: 0;
+}
+
 #header {
     background-color:#66bb66;
     width:100%;
@@ -17,10 +21,6 @@ a#sitename {
     font-size:2.5em;
     margin-left:0.3em;
     float: left;
-}
-
-a#sitename img {
-    border: 0;
 }
 
 ul#topmenu {
