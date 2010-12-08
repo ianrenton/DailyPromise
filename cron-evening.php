@@ -23,7 +23,7 @@ while ($user = mysql_fetch_assoc($userResult)) {
 	$recordResult = mysql_query($query);
 	$latestRecord = mysql_fetch_assoc($recordResult);
 	$daysSinceLast = (strtotime("today") -  strtotime($latestRecord['date'])) / 86400;
-	if (($daysSinceLast > 1) && ($daysSinceLast > 7)) {
+	if (($daysSinceLast > 1) && ($daysSinceLast < 7)) {
 		$tweet = "@" . $user['username'] . ", it's been " . $daysSinceLast . " days since you last entered data on Daily Promise. You can do it at http://dp.onlydreaming.net/enter";
 		$response = $to->post('statuses/update', array('status' => $tweet));
 	} else if ($daysSinceLast == 7) {
