@@ -63,7 +63,7 @@ ul#topmenu li a.username:hover {
 
 #homepagecontent {
     clear:both;
-    width:900px;
+    width:930px;
     margin: 20px auto 20px auto;
 }
 
@@ -88,7 +88,7 @@ div.homepageleft {
 
 div.homepageright {
     float:right;
-    width:250px;
+    width:280px;
     padding-left: 50px;
 }
 
