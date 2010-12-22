@@ -115,14 +115,31 @@ function makeHistoryTable($uid) {
     
     // Make the date headers
     $content .= "<tr><td></td>";
-    $dates = createDatesArray("D<b\\r>jS");
+    $displayDates = createDatesArray("D<b\\r>jS");
+    $checkDates = createDatesArray("j F");
     $today = date("D<b\\r>jS", strtotime("today"));
-    foreach ($dates as $date) {
-        // Highlight today's date
-        if ($date == $today) {
-            $content .= "<td class=\"date " . $class . "\"><strong>" . $date . "</strong></td>";
+	for ($i = 0; $i < 28; $i++) {
+        // Highlight today's date, or render icons
+        if ($checkDates[$i] == "1 January") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/newyear.png\" title=\"New Year's Day\" /></td>";
+        } else if ($checkDates[$i] == "5 February") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/candlemas.png\" title=\"Candlemas\" /></td>";
+        } else if ($checkDates[$i] == "14 February") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/valentines.png\" title=\"Valentines Day\" /></td>";
+        } else if ($checkDates[$i] == "21 June") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/midsummer.png\" title=\"Midsummer\" /></td>";
+        } else if ($checkDates[$i] == "31 October") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/halloween.png\" title=\"Hallowe'en\" /></td>";
+        } else if ($checkDates[$i] == "11 November") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/rememberance.png\" title=\"Rememberance Day\" /></td>";
+        } else if ($checkDates[$i] == "21 December") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/midwinter.png\" title=\"Midwinter\" /></td>";
+        } else if ($checkDates[$i] == "25 December") {
+            $content .= "<td class=\"date " . $class . "\"><img src=\"/images/dayicons/christmas.png\" title=\"Christmas Day\" /></td>";
+        } else if ($date == $today) {
+            $content .= "<td class=\"date " . $class . "\"><strong>" . $displayDates[$i] . "</strong></td>";
         } else {
-            $content .= "<td class=\"date " . $class . "\">" . $date . "</td>";
+            $content .= "<td class=\"date " . $class . "\">" . $displayDates[$i] . "</td>";
         }
     }
     $content .= "</tr>";
