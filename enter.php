@@ -91,30 +91,24 @@ function makeTodaysEntry($date) {
             if ($row['kept'] == "YES") {
                 $yes = " checked";
                 $no = "";
-                $na = "";
             } else if ($row['kept'] == "NO") {
                 $yes = "";
                 $no = " checked";
-                $na = "";
             } else if ($row['kept'] == "NA") {
                 $yes = "";
                 $no = "";
-                $na = " checked";
             } else /* "WAITING" */ {
                 $yes = "";
                 $no = "";
-                $na = "";
             }
         } else {
             $yes = "";
             $no = "";
-            $na = "";
         }
     
         $content .= "<li class=\"item\"><span class=\"floatright\">";
         $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "yes\" value=\"YES\" " . $yes . " /><label for=\"" . $promise['pid'] . "yes\" class=\"yes\">Yes</label>";
         $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "no\" value=\"NO\" " . $no . " /><label for=\"" . $promise['pid'] . "no\" class=\"no\">No</label>";
-        $content .= "<input type=\"radio\" name=\"" . $promise['pid'] . "\" id=\"" . $promise['pid'] . "na\" value=\"NA\" " . $na . " /><label for=\"" . $promise['pid'] . "na\" class=\"na\">N/A</label>";
         $content .= "</span>" . $promise['promise'] . "</li>";
     }
     

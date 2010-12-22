@@ -19,8 +19,6 @@ $promiseResult = mysql_query($query);
 
 // For each promise...
 while ($promise = mysql_fetch_assoc($promiseResult)) {
-    // If non-blank, i.e. the user did actually check "Yes" or "No"...
-    if ($_POST[$promise['pid']] != "") {
         // Get the value returned
         $kept = $_POST[$promise['pid']];
         // Check for existing entries for that day
@@ -37,7 +35,6 @@ while ($promise = mysql_fetch_assoc($promiseResult)) {
         }
         // Something has changed, update the cached stats
         updateCachedStats($_SESSION['uid']);
-    }
 }
 
 mysql_close();
