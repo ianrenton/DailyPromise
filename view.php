@@ -266,7 +266,7 @@ function makeSummary($uid) {
         $content .= "<div class=\"summary\"><div>Nothing has been logged yet this week.</div>";
     }
     
-    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND date<='" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday - 7"))) . "'";
+    $query = "SELECT * FROM records WHERE uid='" . mysql_real_escape_string($uid) . "' AND date<='" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday"))) . "' AND date>'" . mysql_real_escape_string(date("Y-m-d", strtotime("last sunday -7 days"))) . "'";
     $recordResult = mysql_query($query);
     
     $total = 0;
@@ -280,6 +280,7 @@ function makeSummary($uid) {
             $total++;
         }
     }
+    $recordsLastWeek = $total;
     
     if ($total > 0) {
         $lastWeek = round($kept/$total*100);
@@ -290,8 +291,12 @@ function makeSummary($uid) {
     }
     
     $content .= "<p class=\"improvement\">";
-    if ($recordsThisWeek == 0) {
+    if (($recordsThisWeek == 0) && ($recordsLastWeek == 0)) {
+        $content .= "No news is good news?";
+    } else if ($recordsThisWeek == 0) {
         $content .= "Let's see how you do this week.";
+    } else if ($recordsLastWeek == 0) {
+        $content .= "Try your best this week!";
     } else if (($lastWeek == $thisWeek) && ($lastWeek == 100)) {
         $content .= "Perfect all around, you're an inspiration!";
     } else if (($lastWeek > $thisWeek) && ($lastWeek == 100)) {
@@ -309,7 +314,7 @@ function makeSummary($uid) {
     } else if ($lastWeek < $thisWeek) {
         $content .= "Getting better by the day!";
     } else {
-        $content .= "No news is good news?";
+        $content .= "You are likely to be eaten by a grue.";
     }
     $content .= "</p></div>";
     
