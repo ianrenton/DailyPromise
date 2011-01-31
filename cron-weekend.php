@@ -15,18 +15,32 @@ $access_token = unserialize(BOT_ACCESS_TOKEN);
 $to = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
 // Get top users
-$query = "SELECT * FROM users WHERE visible='1' AND activepromises>'0' ORDER BY percentthisweek DESC LIMIT 3";
+$query = "SELECT * FROM users WHERE visible='1' AND activepromises>'0' AND percentthisweek>'0' ORDER BY percentthisweek DESC LIMIT 3";
 $userResult = mysql_query($query);
-$tweet = "Congratulations to this week's best promise-keepers: ";
-$user = mysql_fetch_assoc($userResult);
-$tweet .= "@" . $user['username'] . " (" . $user['percentthisweek'] . "%), ";
-$user = mysql_fetch_assoc($userResult);
-$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%) and ";
-$user = mysql_fetch_assoc($userResult);
-$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%)!";
+$numUsers = mysql_num_rows($userResult);
+if ($numUsers == 3) {
+	$tweet = "Congratulations to this week's best promise-keepers: ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (" . $user['percentthisweek'] . "%), ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%) and ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%)!";
+} else if ($numUsers == 2) {
+	$tweet = "Congratulations to this week's best promise-keepers: ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%) and ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%)!";
+} else if ($numUsers == 1) {
+	$tweet = "Congratulations to this week's best promise-keeper: ";
+	$user = mysql_fetch_assoc($userResult);
+	$tweet .= "@" . $user['username'] . " (". $user['percentthisweek'] . "%)!";
+}
 
-
-$response = $to->post('statuses/update', array('status' => $tweet));
+if ($numUsers > 0) {
+	$response = $to->post('statuses/update', array('status' => $tweet));
+}
 
 mysql_close();
 
