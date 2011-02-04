@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `promises` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `promise` varchar(500) NOT NULL,
-  `days`    int(11) NOT NULL,
+  `days`    int(11) NOT NULL default 7,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -14,8 +14,8 @@ define("OAUTH_CALLBACK", "http://dailypromise/callback.php");
 // cache authentication tokens.)
 define("DB_SERVER", "localhost");
 define("DB_NAME", "dailypromise");
-define("DB_USER", "root");
-define("DB_PASS", "");
+define("DB_USER", "dailypromise");
+define("DB_PASS", "dailypromise");
 
 // Twitter access token for the twitter bot
 define('BOT_ACCESS_TOKEN', '');

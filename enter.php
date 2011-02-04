@@ -96,7 +96,7 @@ function makeTodaysEntry($date) {
                 $no = " checked";
             } else if ($row['kept'] == "NA") {
                 $yes = "";
-                $no = "";
+                $no = " checked";
             } else /* "WAITING" */ {
                 $yes = "";
                 $no = "";
