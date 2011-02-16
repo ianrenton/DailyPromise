@@ -1,5 +1,7 @@
 <?php
 
+var_dump(strtotime); die();
+
 session_start();
 require_once('auth.php');
 require_once('config.php');

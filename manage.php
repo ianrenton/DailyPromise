@@ -106,6 +106,7 @@ function makeCurrentPromises() {
         } else {
             $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)";
         }
+	$content .= "<a href=\"/edit/" . $promise["pid"] . "\" class=\"remove\">Edit</a> ";
         $content .= "<a href=\"/manage/deactivate/" . $promise['pid'] . "\" class=\"remove\">Remove</a></span>";
         $content .= "" . $promise['promise'] . "</li>";
     }
