@@ -51,7 +51,7 @@ if (isset($_GET["promise"]) and is_numeric($_GET["promise"])) {
   }
   $content .= "</select>";
   $content .= " times a week. ";
-  $content .= "<input type=\"submit\" name=\"Submit\" value=\"Edit\">";
+  $content .= "<input type=\"submit\" name=\"Submit\" value=\"Edit\"> ";
   $content .= "<a href=\"/manage\">cancel</a>";
   $content .= "</form>";
 
