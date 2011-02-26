@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `promises` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `promise` varchar(500) NOT NULL,
+  `days`    int(11) NOT NULL default 7,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(200) DEFAULT NULL,
-  `auth_token` varchar(200) DEFAULT NULL,
+  `auth_token` varchar(1000) DEFAULT NULL,
   `profilepic` varchar(256) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
   `activepromises` INT NOT NULL DEFAULT '0',

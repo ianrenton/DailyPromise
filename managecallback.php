@@ -54,7 +54,7 @@ if (isset($_POST['newpromise'])) {
     $newPID = $row['MAX(pid)'] + 1;
     
     // Add promise to table, activate and add a "WAITING" for today.
-    $query = "INSERT INTO promises VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string($_POST['newpromise']) . "', '1')";
+    $query = "INSERT INTO promises VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string($_POST['newpromise']) . "', '1', '" . mysql_real_escape_string($_POST['days']) . "')";
     mysql_query($query);
     $query = "INSERT INTO records VALUES(NULL, '" . mysql_real_escape_string($_SESSION['uid']) . "', '" . mysql_real_escape_string($newPID) . "', '" . mysql_real_escape_string(date("Y-m-d", strtotime("today"))) . "', 'WAITING')";
     mysql_query($query);

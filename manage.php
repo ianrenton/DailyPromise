@@ -106,6 +106,7 @@ function makeCurrentPromises() {
         } else {
             $content .= "<span class=\"floatright\">(" . round($pass/($pass+$fail)*100) . "% success rate since " . date("j M Y", strtotime($earliestDate)) . ".)";
         }
+	$content .= "<a href=\"/edit/" . $promise["pid"] . "\" class=\"remove\">Edit</a> ";
         $content .= "<a href=\"/manage/deactivate/" . $promise['pid'] . "\" class=\"remove\">Remove</a></span>";
         $content .= "" . $promise['promise'] . "</li>";
     }
@@ -122,7 +123,19 @@ function makeNewPromises() {
     $content .= "<div class=\"centeredlistheader\">Add another:</div>";
     
     $content .= "<form class=\"centeredform\" method=\"post\" action=\"/managecallback.php\">";
+    $content .= "I promise to ";
     $content .= "<input type=\"text\" name=\"newpromise\" class=\"newpromisefield\"/>";
+    $content .= " at least ";
+    $content .= "<select name=\"days\" class=\"newpromisefield\">";
+    $content .= "<option value=\"1\">1</option>";
+    $content .= "<option value=\"2\">2</option>";
+    $content .= "<option value=\"3\">3</option>";
+    $content .= "<option value=\"4\">4</option>";
+    $content .= "<option value=\"5\">5</option>";
+    $content .= "<option value=\"6\">6</option>";
+    $content .= "<option value=\"7\" selected=\"yes\">7</option>";
+    $content .= "</select>";
+    $content .= " times a week. ";
     $content .= "<input type=\"submit\" name=\"Submit\" value=\"Add\"><br/>";
     $content .= "<input type=\"checkbox\" name=\"doyesterday\" id=\"doyesterday\" checked/><label for=\"doyesterday\">I want to get started right away - let me add yesterday's data too!</label>";
     $content .= "</form>";
