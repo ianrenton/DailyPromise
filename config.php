@@ -1,6 +1,6 @@
 <?php
 
-// Twitter API stuff.  If you're hosting your own version of SuccessWhale (or
+// Twitter API stuff.  If you're hosting your own version of Daily Promise (or
 // something based on it), register your app with Twitter.  Once you're done,
 // a consumer key and secret will be given to you.
 define("CONSUMER_KEY", "");

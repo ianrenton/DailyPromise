@@ -15,6 +15,7 @@ $content .= '<p>The site is heavily tied into Twitter for retrieving friend list
 $content .= '<h3>Who made Daily Promise?</h3>';
 $content .= '<p>Daily Promise was written by <a href="http://www.onlydreaming.net/about-me">Ian Renton</a>, a software engineer and self-confessed net-junkie who regularly fails to keep every health-related promise he sets.</p>';
 $content .= '<p>He blogged about the development of Daily Promise - you can <a href="http://www.onlydreaming.net/tag/daily-promise">read those entries</a> on his website, <a href="http://www.onlydreaming.net/">Only Dreaming</a>.  He is <a href="http://twitter.com/tsuki_chama">@tsuki_chama</a> on Twitter.</p>';
+$content .= '<p>The "n times per week" and promise editing features were contributed by <a href="http://everblankslate.com/about.html">Mark Harris</a>.</p>';
 $content .= '<h3>Can I request features / report bugs?</h3>';
 $content .= '<p>Of course.  You can either use our <a href="/contact">contact form</a>, or if you have a Github account, your can access the <a href="https://github.com/tsuki/DailyPromise/issues">issue tracker</a> directly.</p>';
 $content .= '<h3>Is Daily Promise free?</h3>';

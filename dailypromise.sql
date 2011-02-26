@@ -68,9 +68,10 @@ CREATE TABLE IF NOT EXISTS `records` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `twitter_uid` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(200) DEFAULT NULL,
-  `auth_token` varchar(1000) DEFAULT NULL,
+  `auth_token` varchar(2000) DEFAULT NULL,
   `profilepic` varchar(256) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL,
   `activepromises` INT NOT NULL DEFAULT '0',
