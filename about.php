@@ -17,7 +17,7 @@ $content .= '<p>Daily Promise was written by <a href="http://ianrenton.com/about
 $content .= '<p>He blogged about the development of Daily Promise - you can <a href="http://blog.ianrenton.com/tag/daily-promise">read those entries</a> on his blog.  He is <a href="http://twitter.com/tsuki_chama">@tsuki_chama</a> on Twitter.</p>';
 $content .= '<p>The "n times per week" and promise editing features were contributed by <a href="http://everblankslate.com/about.html">Mark Harris</a>.</p>';
 $content .= '<h3>Can I request features / report bugs?</h3>';
-$content .= '<p>Of course.  You can either use our <a href="/contact">contact form</a>, or if you have a Github account, your can access the <a href="https://github.com/tsuki/DailyPromise/issues">issue tracker</a> directly.</p>';
+$content .= '<p>Of course.  You can either use our <a href="/contact">contact form</a>, or if you have a Github account, your can access the <a href="https://github.com/ianrenton/DailyPromise/issues">issue tracker</a> directly.</p>';
 $content .= '<h3>Is Daily Promise free?</h3>';
 $content .= '<p>In every sense.</p>';
 $content .= '<p>You don\'t need to pay to use Daily Promise at any point, and it has no adverts.</p>';
