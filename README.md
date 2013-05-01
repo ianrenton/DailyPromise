@@ -14,10 +14,16 @@ Install on Heroku
 
 * Set up a MySQL database somewhere
 * Run:
+
+```
     git clone https://github.com/ianrenton/DailyPromise.git
     cd DailyPromise
     cp sample.env .env
+```
 * Edit `.env` in your favourite editor
 * Run:
+
+```
     heroku apps:create
     heroku config:push
+```
